@@ -69,7 +69,7 @@ const PropertyList = () => {
         </div>
         <Link
           to="/properties"
-          className="group text-[var(--headings-color)] font-semibold text-[15px] hover:text-[var(--primaryColor)] transition duration-300"
+          className="group text-[var(--headings-color)] font-semibold text-[15px] hover:text-(--primaryColor) transition duration-300"
         >
           {propertyList.viewAllBtn}
           <i
@@ -98,7 +98,7 @@ const PropertyList = () => {
               )}
               {/* modal icon */}
               <i
-                className="bx bx-expand absolute text-xl right-10 bottom-5 p-2 bg-[var(--primaryColor)]/20 rounded-sm text-[var(--primaryColor)] cursor-pointer"
+                className="bx bx-expand absolute text-xl right-10 bottom-5 p-2 bg-(--primaryColor)/20 rounded-sm text-(--primaryColor) cursor-pointer"
                 onClick={() => setSelectedProperty(item)}
               ></i>
             </div>
@@ -110,7 +110,7 @@ const PropertyList = () => {
 
             <div className="p-4 flex flex-col flex-grow">
               <div className="flex justify-between items-start mb-2">
-                <h3 className="text-lg font-bold text-gray-800 line-clamp-1 capitalize hover:text-[var(--primaryColor)] transition">
+                <h3 className="text-lg font-bold text-gray-800 line-clamp-1 capitalize hover:text-(--primaryColor) transition">
                   <a href={`/property/${item._id}`}>{item.title}</a>
                 </h3>
               </div>
@@ -138,7 +138,7 @@ const PropertyList = () => {
               </div>
 
               <div className="mt-auto flex justify-between items-center">
-                <p className="text-lg font-bold text-[var(--primaryColor)]">
+                <p className="text-lg font-bold text-(--primaryColor)">
                   ₹{item.price?.amount?.toLocaleString()}
                   {item.listingType === "rent" && (
                     <span className="text-xs font-normal">/mo</span>
@@ -181,7 +181,7 @@ const PropertyList = () => {
       </div>
       {/* <div className="flex items-center justify-center mb-6 ">
         <button
-          className="px-4 py-2 text-white bg-[var(--primaryColor)] cursor-pointer rounded-sm"
+          className="px-4 py-2 text-white bg-(--primaryColor) cursor-pointer rounded-sm"
           onClick={loadMoreCards}
         >
           {loading ? "Loading..." : " Load More"}
@@ -191,7 +191,7 @@ const PropertyList = () => {
       {properties?.length > 0 && visiblecards < properties.length && (
         <div className="flex items-center justify-center mb-6 ">
           <button
-            className="px-4 py-2 text-white bg-[var(--primaryColor)] cursor-pointer rounded-sm"
+            className="px-4 py-2 text-white bg-(--primaryColor) cursor-pointer rounded-sm"
             onClick={loadMoreCards}
           >
             {loading ? "Loading..." : "Load More"}

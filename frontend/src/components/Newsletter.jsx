@@ -56,7 +56,7 @@ const Newsletter = () => {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-[var(--primaryColor)] text-[var(--whiteColor)] text-sm cursor-pointer"
+          className="px-4 py-2 bg-(--primaryColor) text-[var(--whiteColor)] text-sm cursor-pointer"
         >
           {newsletterData.buttonText}
         </button>

@@ -88,16 +88,16 @@ const CityWiseProperties = () => {
     //   <Slider {...settings}>
     //     {cityList.map((city, index) => (
     //       <div key={index} className={`category-card group bg-[${city.image}]`}>
-    //         <div className="m-2.5 p-5 bg-[var(--primaryColor)]/5 group-hover:bg-[var(--primaryColor)] transition duration-300 text-center rounded-sm">
+    //         <div className="m-2.5 p-5 bg-(--primaryColor)/5 group-hover:bg-(--primaryColor) transition duration-300 text-center rounded-sm">
     //           <div className="mb-4">
     //             <i
-    //               className={`bx ${city.iconClass} text-5xl text-[var(--primaryColor)] group-hover:text-[var(--whiteColor)] transition duration-300 `}
+    //               className={`bx ${city.iconClass} text-5xl text-(--primaryColor) group-hover:text-[var(--whiteColor)] transition duration-300 `}
     //             ></i>
     //           </div>
 
     //           <Link
     //             to={`/properties?city=${city.name}`}
-    //             className="capitalize text-md font-semibold text-[var(--primaryColor)] mb-4 block group-hover:text-[var(--whiteColor)] transition duration-300 "
+    //             className="capitalize text-md font-semibold text-(--primaryColor) mb-4 block group-hover:text-[var(--whiteColor)] transition duration-300 "
     //           >
     //             {city.name}
     //           </Link>
@@ -133,7 +133,7 @@ const CityWiseProperties = () => {
               <div className="relative w-full p-5 text-center z-10">
                 <Link
                   to={`/properties?city=${city.name}`}
-                  className="capitalize text-xl font-bold text-white mb-1 block drop-shadow-md hover:text-[var(--primaryColor)] transition duration-300"
+                  className="capitalize text-xl font-bold text-white mb-1 block drop-shadow-md hover:text-(--primaryColor) transition duration-300"
                 >
                   {city.name}
                 </Link>

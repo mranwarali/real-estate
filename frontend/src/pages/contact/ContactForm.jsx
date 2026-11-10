@@ -136,7 +136,7 @@ const ContactForm = () => {
                 </button> */}
         <button
           type="submit"
-          className="px-6 py-2 w-full text-sm bg-[var(--primaryColor)] text-white rounded hover:bg-[var(--primaryColor)]/90 transition cursor-pointer"
+          className="px-6 py-2 w-full text-sm bg-(--primaryColor) text-white rounded hover:bg-(--primaryColor)/90 transition cursor-pointer"
         >
           {loading ? "Submitting..." : "Submit"}
         </button>

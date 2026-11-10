@@ -129,7 +129,7 @@ const Footer = () => {
                       <Link
                         // href={item.link}
                         to={`/properties?propertyType=${item.name}`}
-                        className="text-[var(--whiteColor)] text-sm transition-colors hover:text-[var(--primaryColor)] transition duration-300 capitalize"
+                        className="text-[var(--whiteColor)] text-sm transition-colors hover:text-(--primaryColor) transition duration-300 capitalize"
                       >
                         {item.name}
                       </Link>
@@ -178,7 +178,7 @@ const Footer = () => {
                     >
                       <Link
                         to={`/properties?city=${city.name}`}
-                        className="text-[var(--whiteColor)] text-sm transition-colors hover:text-[var(--primaryColor)] transition duration-300 capitalize flex citys-center"
+                        className="text-[var(--whiteColor)] text-sm transition-colors hover:text-(--primaryColor) transition duration-300 capitalize flex citys-center"
                       >
                         <i className="bx bx-chevron-right mr-1"></i>
                         {city.name}

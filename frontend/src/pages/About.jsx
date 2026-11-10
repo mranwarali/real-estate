@@ -25,7 +25,7 @@ const About = () => {
 
           <div className="col-span-1 lg:col-span-2">
             <div className="space-y-6">
-              <p className="text-md font-semibold bg-[var(--primaryColor)] px-2 py-1 w-fit rounded-lg text-white">
+              <p className="text-md font-semibold bg-(--primaryColor) px-2 py-1 w-fit rounded-lg text-white">
                 About Us
               </p>
               <h2 className="text-4xl font-bold text-gray-700">
@@ -50,7 +50,7 @@ const About = () => {
                   className="col-span-1 p-6"
                   style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
                 >
-                  <div className="border border-[var(--primaryColor)] rounded-xl p-8">
+                  <div className="border border-var(--primaryColor) rounded-xl p-8">
                     <div className="flex items-center justify-around mb-4">
                       {/* <i class={`bx ${aboutUsData.icon} text-5xl`}></i> */}
                       <img src={aboutUsData.icon} alt="" />
@@ -75,7 +75,7 @@ const About = () => {
         </div>
 
         {/* company states  */}
-        <div className="flex items-center justify-between max-w-[800px] mx-auto py-10">
+        <div className="flex items-center justify-between max-w-200 mx-auto py-10">
           {companyState.map((data, i) => (
             <div key={i} className="p-4 text-center">
               <h3 className="text-3xl font-semibold text-[#004274]">

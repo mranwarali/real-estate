@@ -184,7 +184,7 @@ const PostProperty = () => {
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors ${
                   step >= num
-                    ? "bg-[var(--primaryColor)] text-white"
+                    ? "bg-(--primaryColor) text-white"
                     : "bg-gray-200 text-gray-500"
                 }`}
               >
@@ -198,7 +198,7 @@ const PostProperty = () => {
         })}
         <div className="absolute top-4 left-0 w-full h-0.5 bg-gray-100 -z-0">
           <div
-            className="h-full bg-[var(--primaryColor)] transition-all duration-300"
+            className="h-full bg-(--primaryColor) transition-all duration-300"
             style={{
               width: `${((step - 1) / (stepsConfig.length - 1)) * 100}%`,
             }}
@@ -241,9 +241,9 @@ const PostProperty = () => {
                   ))}
 
                   {formData.images.length < 4 && (
-                    <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 hover:border-[var(--primaryColor)] transition-all group">
-                      <i className="bx bx-cloud-upload text-2xl text-gray-400 group-hover:text-[var(--primaryColor)]"></i>
-                      <span className="text-[10px] font-medium text-gray-400 group-hover:text-[var(--primaryColor)]">
+                    <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 hover:border-(--primaryColor) transition-all group">
+                      <i className="bx bx-cloud-upload text-2xl text-gray-400 group-hover:text-(--primaryColor)"></i>
+                      <span className="text-[10px] font-medium text-gray-400 group-hover:text-(--primaryColor)">
                         Upload
                       </span>
                       <input
@@ -264,7 +264,7 @@ const PostProperty = () => {
                 <input
                   type="text"
                   placeholder="Property Title"
-                  className="w-full p-2 text-gray-600 border border-gray-300 text-sm rounded-sm outline-none focus:border-[var(--primaryColor)]"
+                  className="w-full p-2 text-gray-600 border border-gray-300 text-sm rounded-sm outline-none focus:border-(--primaryColor)"
                   value={formData.title}
                   onChange={(e) =>
                     setFormData({ ...formData, title: e.target.value })
@@ -533,7 +533,7 @@ const PostProperty = () => {
             <button
               type="button"
               onClick={nextStep}
-              className="px-5 py-2 bg-[var(--primaryColor)] hover:bg-[var(--primaryHoverColor)] text-white rounded-sm font-medium hover:opacity-90 transition duration-300 cursor-pointer"
+              className="px-5 py-2 bg-(--primaryColor) hover:bg-[var(--primaryHoverColor)] text-white rounded-sm font-medium hover:opacity-90 transition duration-300 cursor-pointer"
             >
               Next
             </button>
@@ -541,7 +541,7 @@ const PostProperty = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`flex items-center justify-center gap-2 px-5 py-2 bg-[var(--primaryColor)] hover:bg-[var(--primaryHoverColor)] text-white rounded-sm font-medium transition duration-300 ${
+              className={`flex items-center justify-center gap-2 px-5 py-2 bg-(--primaryColor) hover:bg-[var(--primaryHoverColor)] text-white rounded-sm font-medium transition duration-300 ${
                 loading ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
               }`}
             >

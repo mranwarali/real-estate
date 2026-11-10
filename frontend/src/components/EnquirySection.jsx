@@ -36,7 +36,7 @@ const EnquirySection = () => {
           </h3>
           <div className="flex items-center gap-4">
             <button
-              className="px-6 py-2 border border-[var(--whiteColor)] text-white rounded-md hover:bg-[var(--primaryColor)] transition-colors font-semibold cursor-pointer"
+              className="px-6 py-2 border border-[var(--whiteColor)] text-white rounded-md hover:bg-(--primaryColor) transition-colors font-semibold cursor-pointer"
               onClick={handleModalOpen}
             >
               {actions.primary.label}
@@ -44,7 +44,7 @@ const EnquirySection = () => {
 
             <Link
               to={actions.secondary.link}
-              className="px-6 py-2 bg-white text-[var(--primaryColor)] rounded-md hover:bg-gray-100 transition-colors font-semibold cursor-pointer"
+              className="px-6 py-2 bg-white text-(--primaryColor) rounded-md hover:bg-gray-100 transition-colors font-semibold cursor-pointer"
             >
               {actions.secondary.label}
             </Link>

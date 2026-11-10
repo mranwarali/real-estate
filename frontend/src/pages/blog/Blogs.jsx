@@ -49,7 +49,7 @@ const Blogs = () => {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute top-4 left-4">
-                <span className="bg-[var(--primaryColor)] text-white text-xs font-semibold px-2.5 py-1 rounded">
+                <span className="bg-(--primaryColor) text-white text-xs font-semibold px-2.5 py-1 rounded">
                   {post?.category || "Article"}
                 </span>
               </div>
@@ -63,7 +63,7 @@ const Blogs = () => {
               </span>
 
               <Link to={`/blog/${post._id}`}>
-                <h2 className="text-xl font-bold text-gray-800 group-hover:text-[var(--primaryColor)] transition-colors line-clamp-2 mb-3 cursor-pointer">
+                <h2 className="text-xl font-bold text-gray-800 group-hover:text-(--primaryColor) transition-colors line-clamp-2 mb-3 cursor-pointer">
                   {post?.title}
                 </h2>
               </Link>
@@ -76,7 +76,7 @@ const Blogs = () => {
               <div className="mt-auto">
                 <Link
                   to={`/blog/${post._id}`}
-                  className="text-[var(--primaryColor)] font-medium text-sm flex items-center gap-1 cursor-pointer hover:underline"
+                  className="text-(--primaryColor) font-medium text-sm flex items-center gap-1 cursor-pointer hover:underline"
                 >
                   Read More
                   <i className="bx bx-chevron-right"></i>
@@ -89,7 +89,7 @@ const Blogs = () => {
       {visiblePosts < posts.length && (
         <div className="text-center py-4">
           <button
-            className="px-6 py-2 bg-[var(--primaryColor)] text-white font-semibold text-sm rounded-sm cursor-pointer"
+            className="px-6 py-2 bg-(--primaryColor) text-white font-semibold text-sm rounded-sm cursor-pointer"
             onClick={handleViewMore}
           >
             Load More

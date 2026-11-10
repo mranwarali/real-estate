@@ -17,7 +17,7 @@ const ProfileMenu = ({ isLoggedIn, user, handleLogout }) => {
             />
           </div>
         ) : (
-          <i className="bx bx-user-circle text-3xl text-gray-600 cursor-pointer hover:text-[var(--primaryColor)] transition-colors"></i>
+          <i className="bx bx-user-circle text-3xl text-gray-600 cursor-pointer hover:text-(--primaryColor) transition-colors"></i>
         )}
 
         {/* The User Dropdown Menu */}
@@ -27,7 +27,7 @@ const ProfileMenu = ({ isLoggedIn, user, handleLogout }) => {
               <li>
                 <Link
                   to="/settings/profile"
-                  className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-[var(--primaryColor)]"
+                  className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-(--primaryColor)"
                 >
                   My Profile
                 </Link>
@@ -35,7 +35,7 @@ const ProfileMenu = ({ isLoggedIn, user, handleLogout }) => {
               <li>
                 <Link
                   to="/settings"
-                  className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-[var(--primaryColor)]"
+                  className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-(--primaryColor)"
                 >
                   Account Settings
                 </Link>
@@ -44,7 +44,7 @@ const ProfileMenu = ({ isLoggedIn, user, handleLogout }) => {
               <hr className="border-gray-100" />
               <li>
                 <button
-                  className="w-full text-left block px-4 py-3 text-sm text-[var(--primaryColor)] hover:bg-red-50 cursor-pointer"
+                  className="w-full text-left block px-4 py-3 text-sm text-(--primaryColor) hover:bg-red-50 cursor-pointer"
                   onClick={handleLogout}
                 >
                   Logout
@@ -55,7 +55,7 @@ const ProfileMenu = ({ isLoggedIn, user, handleLogout }) => {
             <li>
               <Link
                 to="/login"
-                className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-[var(--primaryColor)]"
+                className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-(--primaryColor)"
               >
                 Login/Signup
               </Link>
@@ -70,14 +70,14 @@ const ProfileMenu = ({ isLoggedIn, user, handleLogout }) => {
                 {item.type === "link" ? (
                   <Link
                     to={item.path}
-                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-[var(--primaryColor)] transition-colors"
+                    className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-(--primaryColor) transition-colors"
                   >
                     {item.label}
                   </Link>
                 ) : (
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left block px-4 py-3 text-sm text-[var(--primaryColor)] hover:bg-red-50 cursor-pointer transition-colors"
+                    className="w-full text-left block px-4 py-3 text-sm text-(--primaryColor) hover:bg-red-50 cursor-pointer transition-colors"
                   >
                     {item.label}
                   </button>

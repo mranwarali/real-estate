@@ -53,19 +53,19 @@ const PropertyDetailsModal = ({ selectedProperty, setSelectedProperty }) => {
           {/* Quick Specs */}
           <div className="flex flex-wrap gap-6 text-gray-600 mb-6 py-4 border-y border-gray-100">
             <div className="flex items-center gap-2">
-              <i className="bx bx-bed text-xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-bed text-xl text-(--primaryColor)"></i>
               <span className="font-medium">
                 {features?.bedroom || 0} Bedrooms
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <i className="bx bx-shower text-xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-shower text-xl text-(--primaryColor)"></i>
               <span className="font-medium">
                 {features?.bathroom || 0} Baths
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <i className="bx bx-ruler text-xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-ruler text-xl text-(--primaryColor)"></i>
               <span className="font-medium">
                 {features?.areaSqFt || 0} sqft
               </span>
@@ -89,7 +89,7 @@ const PropertyDetailsModal = ({ selectedProperty, setSelectedProperty }) => {
               <span className="text-sm text-gray-500 font-medium">
                 Total Price
               </span>
-              <span className="text-3xl font-black text-[var(--primaryColor)]">
+              <span className="text-3xl font-black text-(--primaryColor)">
                 ₹{price?.amount?.toLocaleString()}
                 {listingType === "rent" && (
                   <span className="text-sm font-normal">/mo</span>
@@ -99,7 +99,7 @@ const PropertyDetailsModal = ({ selectedProperty, setSelectedProperty }) => {
             <Link
               to={`/property/${_id}`}
               onClick={() => setSelectedProperty(null)}
-              className="bg-[var(--primaryColor)] hover:opacity-90 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95"
+              className="bg-(--primaryColor) hover:opacity-90 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 transition-all active:scale-95"
             >
               View Full Details
             </Link>

@@ -28,7 +28,7 @@ const BackToTop = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="bg-[var(--primaryColor)] hover:bg-[var(--primaryColor)]/90 text-white p-2 rounded-xs shadow-lg transition duration-300 cursor-pointer"
+          className="bg-(--primaryColor) hover:bg-(--primaryColor)/90 text-white p-2 rounded-xs shadow-lg transition duration-300 cursor-pointer"
         >
           <i className="bx bx-chevron-up text-2xl align-middle"></i>
         </button>

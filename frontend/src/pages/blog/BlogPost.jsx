@@ -41,7 +41,7 @@ const BlogPost = () => {
     return (
       <div className="text-center py-20">
         <p className="text-xl text-gray-600 mb-4">Post not found.</p>
-        <Link to="/blogs" className="text-[var(--primaryColor)] underline">
+        <Link to="/blogs" className="text-(--primaryColor) underline">
           Back to Blogs
         </Link>
       </div>
@@ -53,7 +53,7 @@ const BlogPost = () => {
 
       <Link
         to="/blogs"
-        className="text-sm text-gray-500 hover:text-[var(--primaryColor)] flex items-center gap-1 mb-6"
+        className="text-sm text-gray-500 hover:text-(--primaryColor) flex items-center gap-1 mb-6"
       >
         <i className="bx bx-arrow-back"></i> Back to all posts
       </Link>

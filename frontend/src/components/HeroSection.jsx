@@ -129,7 +129,7 @@ const HeroSection = () => {
                   title="Use current location"
                 >
                   <i
-                    className={`bx ${loadingLocation ? "bx-loader-alt" : "bx-target-lock"} p-1 md:p-2 text-xl text-[var(--primaryColor)]`}
+                    className={`bx ${loadingLocation ? "bx-loader-alt" : "bx-target-lock"} p-1 md:p-2 text-xl text-(--primaryColor)`}
                   ></i>
                 </button>
                 <input
@@ -145,7 +145,7 @@ const HeroSection = () => {
 
               {/* Status Filter */}
               <div className="flex items-center gap-3 w-full md:w-48 px-4 border-b md:border-b-0 md:border-r border-gray-100">
-                <i className="bx bx-home-alt text-2xl text-[var(--primaryColor)]"></i>
+                <i className="bx bx-home-alt text-2xl text-(--primaryColor)"></i>
                 <select
                   className="w-full py-3 focus:outline-none bg-transparent font-medium text-gray-700"
                   value={filters.status}
@@ -161,7 +161,7 @@ const HeroSection = () => {
               {/* Search Button */}
               <button
                 type="submit"
-                className="bg-[var(--primaryColor)] hover:opacity-90 text-white w-full md:w-auto px-6 py-3 rounded-sm font-bold flex items-center justify-center gap-2 cursor-pointer transition-transform active:scale-95"
+                className="bg-(--primaryColor) hover:opacity-90 text-white w-full md:w-auto px-6 py-3 rounded-sm font-bold flex items-center justify-center gap-2 cursor-pointer transition-transform active:scale-95"
               >
                 <i className="bx bx-search-alt-2 text-xl"></i>
                 Search

@@ -57,21 +57,21 @@ const PropertyDetails = () => {
           {/* Key Features Bar */}
           <div className="flex flex-wrap gap-6 mt-8 py-6 border-y border-gray-100">
             <div className="flex items-center gap-2">
-              <i className="bx bx-bed text-2xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-bed text-2xl text-(--primaryColor)"></i>
               <div>
                 <p className="text-sm text-gray-500">Bedrooms</p>
                 <p className="font-semibold">{property.features?.bedroom}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <i className="bx bx-bath text-2xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-bath text-2xl text-(--primaryColor)"></i>
               <div>
                 <p className="text-sm text-gray-500">Bathrooms</p>
                 <p className="font-semibold">{property.features?.bathroom}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <i className="bx bx-area text-2xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-area text-2xl text-(--primaryColor)"></i>
               <div>
                 <p className="text-sm text-gray-500">Area</p>
                 <p className="font-semibold">
@@ -80,7 +80,7 @@ const PropertyDetails = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <i className="bx bx-car text-2xl text-[var(--primaryColor)]"></i>
+              <i className="bx bx-car text-2xl text-(--primaryColor)"></i>
               <div>
                 <p className="text-sm text-gray-500">Parking</p>
                 <p className="font-semibold">
@@ -103,7 +103,7 @@ const PropertyDetails = () => {
         <div className="lg:col-span-1">
           <div className="sticky top-24 p-6 border border-gray-300 rounded-xl shadow-md bg-white">
             <div className="mb-4">
-              <span className="bg-gray-100 text-[var(--primaryColor)] text-xs font-bold px-2.5 py-1 rounded uppercase">
+              <span className="bg-gray-100 text-(--primaryColor) text-xs font-bold px-2.5 py-1 rounded uppercase">
                 For {property.listingType}
               </span>
             </div>
@@ -144,14 +144,14 @@ const PropertyDetails = () => {
             {/* <Link
               // to={`tel: ${property.owner.phone}`}
               to={`tel:${property.owner.phone}`}
-              className="w-full inline-block text-center bg-[var(--primaryColor)] text-white py-3 rounded-lg font-bold hover:bg-[var(--primaryHoverColor)] transition-colors shadow-lg shadow-blue-200"
+              className="w-full inline-block text-center bg-(--primaryColor) text-white py-3 rounded-lg font-bold hover:bg-[var(--primaryHoverColor)] transition-colors shadow-lg shadow-blue-200"
             >
               Contact Owner
             </Link> */}
 
             <a
               href={`tel:${property.owner?.phone?.replace(/\D/g, "") || ""}`}
-              className="w-full inline-block text-center bg-[var(--primaryColor)] text-white py-3 rounded-lg font-bold hover:bg-[var(--primaryHoverColor)] transition-colors shadow-lg shadow-blue-200"
+              className="w-full inline-block text-center bg-(--primaryColor) text-white py-3 rounded-lg font-bold hover:bg-[var(--primaryHoverColor)] transition-colors shadow-lg shadow-blue-200"
             >
               Contact Owner
             </a>
