@@ -49,7 +49,7 @@ function App() {
       ],
     },
     { path: "/*", element: <NotFound /> },
-    { path: "/about-us", element: < About/> },
+    { path: "/about-us", element: < About /> },
     { path: "/services", element: <Services /> },
     { path: "/faqs", element: <Faqs /> },
     { path: "/blogs", element: <Blogs /> },

@@ -1,12 +1,11 @@
 const express = require("express");
 const dotenv = require("dotenv");
-// const multer = require("multer");
-dotenv.config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const { connectDB } = require("./config/db");
-const path = require("path");
 const helmet = require("helmet");
+const path = require("path");
+
+// Route Imports
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const propertyRoutes = require("./routes/propertyRoutes");
@@ -16,10 +15,11 @@ const enquiryRoutes = require("./routes/enquiryRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 
-//config enviroment
+// Config environment
 dotenv.config();
 
-//connect db
+// Connect db
+const { connectDB } = require("./config/db");
 connectDB();
 
 const app = express();
@@ -27,30 +27,27 @@ const app = express();
 app.use(cookieParser());
 app.use(helmet());
 
-// app.use(cors());
-
-// app.use(
-//   cors({
-//     origin: "http://localhost:5173",
-//     credentials: true,
-//   }),
-// );
-
+// CORS Configuration
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", 
+      // "http://localhost:5173", 
       process.env.FRONTEND_URL // Add your Vercel URL to your backend .env file
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-  }),
+  })
 );
 
 app.use(express.json());
 // app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// routes
+// Base Route (Health Check for deployment platforms)
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/property", propertyRoutes);
@@ -60,7 +57,7 @@ app.use("/api/enquiry", enquiryRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/blogs", blogRoutes);
 
-//port
-const PORT = process.env.PORT;
+// Port
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server Running On Port ${PORT}`));
