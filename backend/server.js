@@ -38,7 +38,10 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173", 
+      process.env.FRONTEND_URL // Add your Vercel URL to your backend .env file
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   }),
