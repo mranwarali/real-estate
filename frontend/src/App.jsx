@@ -20,7 +20,7 @@ import GeneralSettings from "./pages/settings/GeneralSettings";
 import UpdateProfile from "./pages/UpdateProfile";
 import ChangePassword from "./pages/auth/ChangePassword";
 import PostProperty from "./pages/properties/PostProperty";
-import About from "./pages/about";
+
 import Services from "./pages/Services";
 import Faqs from "./pages/Faqs";
 import PropertiesPage from "./pages/properties/PropertiesPage";
@@ -28,6 +28,7 @@ import PropertyDetails from "./pages/properties/PropertyDetails";
 import BackToTop from "./components/BackToTop";
 import Blogs from "./pages/blog/Blogs";
 import BlogPost from "./pages/blog/BlogPost";
+import About from "./pages/about";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,7 +49,7 @@ function App() {
       ],
     },
     { path: "/*", element: <NotFound /> },
-    { path: "/about-us", element: <About /> },
+    { path: "/about-us", element: < About/> },
     { path: "/services", element: <Services /> },
     { path: "/faqs", element: <Faqs /> },
     { path: "/blogs", element: <Blogs /> },
