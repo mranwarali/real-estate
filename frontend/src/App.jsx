@@ -28,7 +28,8 @@ import PropertyDetails from "./pages/properties/PropertyDetails";
 import BackToTop from "./components/BackToTop";
 import Blogs from "./pages/blog/Blogs";
 import BlogPost from "./pages/blog/BlogPost";
-import About from "./pages/about";
+import About from "./pages/About";
+
 
 function App() {
   const [loading, setLoading] = useState(true);
