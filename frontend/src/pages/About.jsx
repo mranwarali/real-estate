@@ -4,7 +4,7 @@ import AboutBanner from "../assets/images/about-top.webp";
 import { aboutUsData } from "../data/data";
 import AutoCounter from "../components/AutoCounter";
 import { companyState } from "../data/data";
-import OurAgents from "../components/Ouragents";
+import OurAgents from "../components/OurAgents";
 import Partners from "../components/Partners";
 import VideoBanner from "../components/VideoBanner";
 

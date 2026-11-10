@@ -20,9 +20,8 @@ import GeneralSettings from "./pages/settings/GeneralSettings";
 import UpdateProfile from "./pages/UpdateProfile";
 import ChangePassword from "./pages/auth/ChangePassword";
 import PostProperty from "./pages/properties/PostProperty";
-
 import Services from "./pages/Services";
-import Faqs from "./pages/Faqs";
+import Faqs from "./pages/FAQs";
 import PropertiesPage from "./pages/properties/PropertiesPage";
 import PropertyDetails from "./pages/properties/PropertyDetails";
 import BackToTop from "./components/BackToTop";
