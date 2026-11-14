@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import AgentProfileModal from "./AgentProfileModal";
+import useResponsiveSliderSettings from "../hooks/useResponsiveSliderSettings";
 
 const BASE_API = import.meta.env.VITE_BASE_URL;
 
@@ -85,6 +86,7 @@ const OurAgents = () => {
       },
     ],
   };
+  const sliderSettings = useResponsiveSliderSettings(settings);
 
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
@@ -100,7 +102,7 @@ const OurAgents = () => {
         </p>
       </div>
 
-      <Slider {...settings} className="mobile-dots-slider -mx-2 pb-8">
+      <Slider {...sliderSettings} className="mobile-dots-slider -mx-2 pb-8">
         {data.map((agent) => (
           <div key={agent._id} className="px-2 pb-2">
             <div className="bg-white rounded-2xl shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col items-center p-5 sm:p-8 text-center h-full">

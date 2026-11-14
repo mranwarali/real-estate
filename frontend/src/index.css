@@ -43,7 +43,6 @@ input::-webkit-inner-spin-button {
 
 /* Slick Carousel responsive fixes */
 .slick-slider {
-  max-width: 100%;
   overflow: hidden;
   position: relative;
 }

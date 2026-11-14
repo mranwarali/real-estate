@@ -7,6 +7,7 @@ import Img4 from "../assets/images/partners/4.webp";
 import Img5 from "../assets/images/partners/5.webp";
 import Img6 from "../assets/images/partners/6.webp";
 import Img7 from "../assets/images/partners/7.webp";
+import useResponsiveSliderSettings from "../hooks/useResponsiveSliderSettings";
 
 const Partners = () => {
   const partnersList = [Img1, Img2, Img3, Img4, Img5, Img6, Img7];
@@ -45,6 +46,7 @@ const Partners = () => {
       },
     ],
   };
+  const sliderSettings = useResponsiveSliderSettings(settings);
 
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 border-t border-gray-100">
@@ -54,7 +56,7 @@ const Partners = () => {
         </p>
       </div>
 
-      <Slider {...settings} className="items-center">
+      <Slider {...sliderSettings} className="items-center">
         {partnersList.map((partner, index) => (
           <div key={index} className="px-2 sm:px-4 py-2">
             <div className="flex items-center justify-center h-16 opacity-60 hover:opacity-100 transition-opacity">

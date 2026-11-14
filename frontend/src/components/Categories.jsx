@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import Slider from "react-slick";
 import { getProperties } from "../redux/property/propertySlice";
+import useResponsiveSliderSettings from "../hooks/useResponsiveSliderSettings";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -87,6 +88,7 @@ const Categories = () => {
       },
     ],
   };
+  const sliderSettings = useResponsiveSliderSettings(settings);
 
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-4 sm:pb-6">
@@ -118,7 +120,7 @@ const Categories = () => {
           ))}
         </div>
       ) : (
-        <Slider {...settings} className="-mx-2">
+        <Slider {...sliderSettings} className="-mx-2">
           {categoryList.map((cat, index) => (
             <div key={index} className="px-2 pb-2">
               <Link

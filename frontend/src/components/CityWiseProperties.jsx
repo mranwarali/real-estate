@@ -9,6 +9,7 @@ import MumbaiImg from "../assets/images/propertyImages/mumbai.avif";
 import PuneImg from "../assets/images/propertyImages/pune.avif";
 import { Link } from "react-router";
 import { propertyByCity } from "../data/data";
+import useResponsiveSliderSettings from "../hooks/useResponsiveSliderSettings";
 
 const CityWiseProperties = () => {
   const dispatch = useDispatch();
@@ -92,6 +93,7 @@ const CityWiseProperties = () => {
       },
     ],
   };
+  const sliderSettings = useResponsiveSliderSettings(settings);
 
   return (
     <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
@@ -116,7 +118,7 @@ const CityWiseProperties = () => {
         </Link>
       </div>
 
-      <Slider {...settings} className="mobile-dots-slider -mx-2 pb-8">
+      <Slider {...sliderSettings} className="mobile-dots-slider -mx-2 pb-8">
         {cityList.map((city, index) => (
           <div key={index} className="px-2 pb-2">
             <Link
