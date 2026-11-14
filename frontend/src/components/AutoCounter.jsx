@@ -10,7 +10,6 @@ const AutoCounter = ({ targetNumber, duration = 2000 }) => {
       return;
     }
 
-    let start = 0;
     const startTime = performance.now();
 
     const updateCounter = (currentTime) => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Logo from "../assets/images/nestora-logo-light.svg";
-import { footerLinks, address, footerData } from "../data/data";
+import { footerData } from "../data/data";
 import Newsletter from "./Newsletter";
 import { useDispatch, useSelector } from "react-redux";
 import { getProperties } from "../redux/property/propertySlice";

@@ -10,7 +10,7 @@ import { propertyList } from "../../data/data";
 const PropertiesPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { properties, isLoading, error } = useSelector(
+  const { properties, isLoading } = useSelector(
     (state) => state.property,
   );
 
