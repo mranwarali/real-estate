@@ -1,63 +1,75 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const Settings = () => {
   const location = useLocation();
 
+  const navItems = [
+    {
+      to: "/settings/general-settings",
+      path: "/settings/general-settings",
+      alias: "/settings",
+      icon: "bx-cog",
+      label: "General",
+    },
+    {
+      to: "/settings/profile",
+      path: "/settings/profile",
+      icon: "bx-user",
+      label: "Profile",
+    },
+    {
+      to: "/settings/change-password",
+      path: "/settings/change-password",
+      icon: "bx-lock-alt",
+      label: "Security",
+    },
+  ];
+
   return (
-    <div className="max-w-4xl mx-auto my-10 px-4 flex flex-col md:flex-row gap-8">
-      <div className="w-full md:w-64 space-y-2">
-        <h2 className="text-xl font-bold text-gray-800 mb-6 px-4">Settings</h2>
-        <nav>
-          <Link
-            to="/settings/general-settings"
-            className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition ${
-              location.pathname === "/settings/general-settings"
-                ? "bg-green-50 text-green-700"
-                : "text-gray-600 hover:bg-gray-100"
-            }`}
-          >
-            <i className="bx bx-cog text-lg"></i> General
-          </Link>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-5xl">
+      <Breadcrumbs currentLabel={"Account Settings"} />
 
-          <Link
-            to="/settings/profile"
-            className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition ${
-              location.pathname === "/settings/profile"
-                ? "bg-green-50 text-green-700"
-                : "text-gray-600 hover:bg-gray-100"
-            }`}
-          >
-            <i className="bx bx-user text-lg"></i> Profile
-          </Link>
-
-          <Link
-            to="/settings/change-password"
-            className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition ${
-              location.pathname === "/settings/change-password"
-                ? "bg-green-50 text-green-700"
-                : "text-gray-600 hover:bg-gray-100"
-            }`}
-          >
-            <i className="bx bx-lock-alt text-lg"></i> Password
-          </Link>
-
-          {/* <Link
-            to="/settings/notifications"
-            className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition ${
-              location.pathname === "/settings/notifications"
-                ? "bg-green-50 text-green-700"
-                : "text-gray-600 hover:bg-gray-100"
-            }`}
-          >
-            <i className="bx bx-bell text-lg"></i> Notifications
-          </Link> */}
-        </nav>
+      <div className="my-6">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900">
+          Account Settings
+        </h1>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">
+          Manage your personal profile, notification preferences and account security.
+        </p>
       </div>
 
-      {/* --- Main Content Area --- */}
-      <div className="flex-1">
-        <Outlet />
+      <div className="flex flex-col md:flex-row gap-6 sm:gap-8 items-start">
+        {/* Navigation Sidebar / Mobile Horizontal Tabs */}
+        <div className="w-full md:w-60 shrink-0">
+          <nav className="flex flex-row md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0 bg-gray-50 p-2 rounded-2xl border border-gray-100">
+            {navItems.map((item) => {
+              const isActive =
+                location.pathname === item.path ||
+                (item.alias && location.pathname === item.alias);
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className={`flex items-center gap-2.5 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-xl transition-all whitespace-nowrap shrink-0 md:shrink md:w-full ${
+                    isActive
+                      ? "bg-white text-(--primaryColor) shadow-sm border border-gray-100"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-white/60"
+                  }`}
+                >
+                  <i className={`bx ${item.icon} text-lg`}></i>
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Content Outlet */}
+        <div className="flex-1 w-full min-w-0">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

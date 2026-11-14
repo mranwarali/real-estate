@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { deleteProfile } from "../../redux/user/userSlice";
 import { logout } from "../../redux/auth/authSlice";
@@ -14,7 +13,7 @@ const GeneralSettings = () => {
     email: false,
   });
 
-  const handleSwich = (key) => {
+  const handleSwitch = (key) => {
     setNotifications((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -22,12 +21,12 @@ const GeneralSettings = () => {
   const handleDeleteAccount = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "This action will permanently delete your account and all listed properties!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#5a5a5a",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: "#eb6753",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, delete it",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -51,110 +50,95 @@ const GeneralSettings = () => {
   };
 
   return (
-    <div className="flex-1 space-y-6">
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
-        <div className="p-6 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-800">
-            Account Preferences
+    <div className="space-y-6">
+      {/* Account Preferences Card */}
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
+        <div className="p-5 sm:p-6 border-b border-gray-100">
+          <h3 className="text-base font-bold text-gray-900">
+            Regional & Language Preferences
           </h3>
-          <p className="text-sm text-gray-500">
-            Manage your language and display settings.
+          <p className="text-xs text-gray-500 mt-0.5">
+            Manage your default currency, language, and measurement units.
           </p>
         </div>
-        <div className="p-6 space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="p-5 sm:p-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-medium text-gray-700">Language</p>
-              <p className="text-xs text-gray-500">
-                Select your preferred language.
+              <p className="text-sm font-semibold text-gray-800">Display Language</p>
+              <p className="text-xs text-gray-400">
+                Choose the language you prefer for property listings.
               </p>
             </div>
-            <select className="text-sm border border-gray-300 rounded-md p-2 outline-none focus:ring-2 focus:ring-green-500">
-              <option>English (US)</option>
+            <select className="text-xs sm:text-sm border border-gray-200 rounded-xl px-3 py-2 bg-gray-50 outline-none focus:border-(--primaryColor) text-gray-700">
+              <option>English (India)</option>
+              <option>Hindi (हिंदी)</option>
               <option>Spanish</option>
-              <option>French</option>
             </select>
           </div>
         </div>
       </div>
 
       {/* Notifications Card */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
-        <div className="p-6 border-b border-gray-100">
-          <h3 className="text-lg font-semibold text-gray-800">
-            Email Notifications
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
+        <div className="p-5 sm:p-6 border-b border-gray-100">
+          <h3 className="text-base font-bold text-gray-900">
+            Notification Preferences
           </h3>
-          <p className="text-sm text-gray-500">
-            Decide what updates you want to receive.
+          <p className="text-xs text-gray-500 mt-0.5">
+            Control which messages and alerts you receive.
           </p>
         </div>
-        <div className="p-6 space-y-6">
-          <div className="flex items-center justify-between">
+        <div className="p-5 sm:p-6 space-y-5">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-gray-700">
-                Security Alerts
+              <p className="text-sm font-semibold text-gray-800">
+                Security & Account Alerts
               </p>
-              <p className="text-xs text-gray-500">
-                Get notified about suspicious login attempts.
+              <p className="text-xs text-gray-400">
+                Get notified when logins or profile changes occur.
               </p>
             </div>
             <ToggleButton
               enabled={notifications.security}
-              toggle={() => handleSwich("security")}
+              toggle={() => handleSwitch("security")}
             />
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-gray-700">
-                Marketing Emails
+              <p className="text-sm font-semibold text-gray-800">
+                Property Inquiries & Updates
               </p>
-              <p className="text-xs text-gray-500">
-                Receive news about new features and offers.
+              <p className="text-xs text-gray-400">
+                Receive email alerts when buyers contact you about your listings.
               </p>
             </div>
             <ToggleButton
               enabled={notifications.email}
-              toggle={() => handleSwich("email")}
+              toggle={() => handleSwitch("email")}
             />
           </div>
         </div>
       </div>
 
-      {/* Security Quick Link */}
-      {/* <div className="bg-red-50 border border-red-100 rounded-xl p-6 flex items-center justify-between">
-        <div>
-          <h4 className="text-sm font-bold text-red-800 uppercase tracking-wider">
-            Account Privacy
-          </h4>
-          <p className="text-sm text-red-600">
-            Want to deactivate your account temporarily?
-          </p>
-        </div>
-        <button className="px-4 py-2 bg-white border border-red-200 text-red-600 text-sm font-semibold rounded-lg hover:bg-red-600 hover:text-white transition">
-          Deactivate
-        </button>
-      </div>
-    </div> */}
-
-      {/* --- Delete Profile --- */}
-      <div className="mt-10 pt-6 border-t border-gray-200">
-        <h3 className="text-sm font-bold text-red-600 uppercase tracking-wider mb-2">
+      {/* Danger Zone */}
+      <div className="p-5 sm:p-6 bg-red-50/60 rounded-2xl border border-red-200/80">
+        <h3 className="text-xs font-bold text-red-700 uppercase tracking-wider mb-1">
           Danger Zone
         </h3>
-        <div className="flex items-center justify-between p-4 bg-red-50 rounded-md border border-red-100">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-3">
           <div>
-            <p className="text-sm font-semibold text-gray-800">
-              Delete this account
+            <p className="text-sm font-bold text-gray-900">
+              Permanently Delete Account
             </p>
-            <p className="text-xs text-gray-500">
-              Once you delete your account, there is no going back.
+            <p className="text-xs text-gray-500 mt-0.5">
+              Once you delete your account, there is no going back. All listings will be removed.
             </p>
           </div>
           <button
             onClick={handleDeleteAccount}
             type="button"
-            className="text-sm font-semibold text-white px-4 py-2 bg-red-500 rounded-sm hover:bg-red-600 transition duration-300 cursor-pointer shadow-sm"
+            className="text-xs font-bold text-white px-5 py-2.5 bg-red-500 hover:bg-red-600 rounded-xl transition shadow-xs cursor-pointer shrink-0 self-start sm:self-center"
           >
             Delete Account
           </button>
@@ -166,15 +150,17 @@ const GeneralSettings = () => {
 
 const ToggleButton = ({ enabled, toggle }) => (
   <button
+    type="button"
     onClick={toggle}
     className={`${
-      enabled ? "bg-green-600" : "bg-gray-300"
-    } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer`}
+      enabled ? "bg-(--primaryColor)" : "bg-gray-300"
+    } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer shrink-0`}
+    aria-label="Toggle setting"
   >
     <span
       className={`${
         enabled ? "translate-x-6" : "translate-x-1"
-      } inline-block h-4 w-4 transform rounded-full bg-white transition-transform `}
+      } inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-xs`}
     />
   </button>
 );

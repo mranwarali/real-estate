@@ -13,6 +13,7 @@ const ContactForm = () => {
   });
   const [loading, setLoading] = useState(false);
   const [isAgreed, setIsAgreed] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -24,14 +25,15 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isAgreed) return;
+    if (!isAgreed) {
+      toast.error("Please agree to the privacy policy to submit.");
+      return;
+    }
     setLoading(true);
-
-    console.log("Submitting to MongoDB:", formData);
 
     try {
       const res = await axios.post(`${BASE_API}/contact/contact-us`, formData);
-      toast.success(res.data.message || "Form Sunbmitted Successfully");
+      toast.success(res.data?.message || "Form submitted successfully!");
       setFormData({
         fullName: "",
         email: "",
@@ -41,7 +43,7 @@ const ContactForm = () => {
       setIsAgreed(false);
     } catch (error) {
       const errorMsg =
-        error.response?.data?.message || "Error While Submitting The Form.";
+        error.response?.data?.message || "Error while submitting the form.";
       toast.error(errorMsg);
     } finally {
       setLoading(false);
@@ -49,100 +51,102 @@ const ContactForm = () => {
   };
 
   return (
-    <>
-      <h2 className="text-2xl font-semibold text-gray-700 text-center pb-4">
-        Contact Us
+    <div>
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 pb-2">
+        Send Us a Message
       </h2>
+      <p className="text-xs sm:text-sm text-gray-500 mb-6">
+        Fill out this quick form and our team will be in touch shortly.
+      </p>
 
-      <form onSubmit={handleSubmit} className="p-6 space-y-4">
-        <div className="">
-          <label className="block text-sm font-medium text-gray-700">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-xs font-semibold text-gray-700 mb-1.5">
             Full Name *
           </label>
           <input
             type="text"
             name="fullName"
             required
+            placeholder="e.g. John Doe"
             value={formData.fullName}
             onChange={handleChange}
-            className="w-full mt-1 p-2 border border-gray-300 text-sm rounded outline-none"
+            className="w-full px-3.5 py-2.5 border border-gray-200 text-sm rounded-xl outline-none focus:border-(--primaryColor) focus:ring-2 focus:ring-orange-100 transition-all text-gray-800"
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email *
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Email Address *
             </label>
             <input
               type="email"
               name="email"
               required
+              placeholder="john@example.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border border-gray-300 text-sm rounded outline-none"
+              className="w-full px-3.5 py-2.5 border border-gray-200 text-sm rounded-xl outline-none focus:border-(--primaryColor) focus:ring-2 focus:ring-orange-100 transition-all text-gray-800"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Phone *
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Phone Number *
             </label>
             <input
               type="tel"
               name="phone"
               required
+              placeholder="+91 9876543210"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full mt-1 p-2 border border-gray-300 text-sm rounded outline-none"
+              className="w-full px-3.5 py-2.5 border border-gray-200 text-sm rounded-xl outline-none focus:border-(--primaryColor) focus:ring-2 focus:ring-orange-100 transition-all text-gray-800"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Message
+          <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+            Your Message *
           </label>
           <textarea
             name="message"
-            rows="3"
+            rows="4"
+            required
+            placeholder="Write your message, property queries, or request a call..."
             value={formData.message}
             onChange={handleChange}
-            className="w-full mt-1 p-2 border border-gray-300 text-sm rounded outline-none"
+            className="w-full px-3.5 py-2.5 border border-gray-200 text-sm rounded-xl outline-none focus:border-(--primaryColor) focus:ring-2 focus:ring-orange-100 transition-all text-gray-800"
           ></textarea>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-start gap-2.5 pt-1">
           <input
             type="checkbox"
             name="consent"
             id="consent"
             checked={isAgreed}
             onChange={handleCheckbox}
-            className="cursor-pointer"
+            className="mt-0.5 w-4 h-4 accent-(--primaryColor) rounded cursor-pointer shrink-0"
             required
           />
-          <label htmlFor="consent" className="text-[14px] text-gray-700">
-            I consent to having this website store my submitted information
+          <label htmlFor="consent" className="text-xs text-gray-600 cursor-pointer select-none leading-relaxed">
+            I consent to having this website store my submitted information so they can respond to my inquiry.
           </label>
         </div>
 
-        {/* <div className="flex justify-end space-x-3 mt-6">
-                <button
-                  type="button"
-                  className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer"
-                >
-                  Cancel
-                </button> */}
         <button
           type="submit"
-          className="px-6 py-2 w-full text-sm bg-(--primaryColor) text-white rounded hover:bg-(--primaryColor)/90 transition cursor-pointer"
+          disabled={loading}
+          className="w-full py-3 px-6 text-sm font-bold bg-(--primaryColor) hover:bg-(--primaryHoverColor) text-white rounded-xl shadow-md shadow-orange-300 transition-all cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2"
         >
-          {loading ? "Submitting..." : "Submit"}
+          {loading && <i className="bx bx-loader-alt animate-spin text-base"></i>}
+          <span>{loading ? "Sending Message..." : "Send Message"}</span>
         </button>
-        {/* </div> */}
       </form>
-    </>
+    </div>
   );
 };
 

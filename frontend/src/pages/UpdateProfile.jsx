@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { fetchProfile, updateProfile } from "../redux/user/userSlice";
 import { useNavigate } from "react-router";
-import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -12,7 +11,7 @@ const UpdateProfile = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const imageRef = useRef(null);
   const navigate = useNavigate();
-  console.log("profile", profile);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -75,46 +74,15 @@ const UpdateProfile = () => {
     }
     try {
       const resultAction = await dispatch(updateProfile(data)).unwrap();
-
       if (resultAction) {
         setAvatar(null);
+        setEdit(null);
+        toast.success("Profile updated successfully!");
       }
     } catch (err) {
-      console.error("Failed to update profile:", err);
+      toast.error(err?.message || "Failed to update profile.");
     }
   };
-
-  // // Delete Profile
-  // const handleDeleteAccount = () => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#d33",
-  //     cancelButtonColor: "#5a5a5a",
-  //     confirmButtonText: "Yes, delete it!",
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       try {
-  //         await dispatch(deleteProfile()).unwrap();
-  //         dispatch(logout());
-  //         Swal.fire({
-  //           title: "Deleted!",
-  //           text: "Your account has been successfully removed.",
-  //           icon: "success",
-  //         });
-  //         navigate("/signup");
-  //       } catch (error) {
-  //         Swal.fire({
-  //           title: "Error!",
-  //           text: error || "Something went wrong. Please try again.",
-  //           icon: "error",
-  //         });
-  //       }
-  //     }
-  //   });
-  // };
 
   const handleImageClick = () => {
     imageRef.current.click();
@@ -127,25 +95,30 @@ const UpdateProfile = () => {
   }, [isLoggedIn, navigate]);
 
   return (
-    <div className="max-w-5xl mx-auto border border-gray-300 shadow-lg p-6 bg-white rounded-md">
-      <div className="flex items-center justify-center gap-3 mb-5">
-        <i className="bx bxs-user-circle text-3xl text-green-600"></i>
-        <h2 className="text-2xl font-bold text-gray-800">Account Settings</h2>
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden p-5 sm:p-8">
+      <div className="flex items-center gap-2.5 pb-5 border-b border-gray-100 mb-6">
+        <div className="w-10 h-10 rounded-xl bg-orange-100 text-(--primaryColor) flex items-center justify-center text-xl">
+          <i className="bx bx-user-circle"></i>
+        </div>
+        <div>
+          <h2 className="text-lg font-bold text-gray-900">Personal Profile</h2>
+          <p className="text-xs text-gray-500">Update your details and public avatar</p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="relative group">
+        {/* Avatar Upload */}
+        <div className="flex flex-col items-center justify-center">
+          <div className="relative group cursor-pointer" onClick={handleImageClick}>
             <img
               src={
                 preview ||
                 "https://img.freepik.com/premium-vector/user-icon-round-grey-icon_1076610-44912.jpg"
               }
-              alt="Profile"
-              className="w-24 h-24 rounded-full border-2 border-gray-200 cursor-pointer object-cover hover:opacity-80 transition duration-300"
-              onClick={handleImageClick}
+              alt="Profile avatar"
+              className="w-24 h-24 rounded-full border-4 border-orange-100 object-cover shadow-sm group-hover:opacity-80 transition-all"
             />
-            <div className="absolute bottom-0 right-0 bg-green-500 p-1 rounded-full text-white text-xs">
+            <div className="absolute bottom-0 right-0 bg-(--primaryColor) p-2 rounded-full text-white text-xs shadow-md">
               <i className="bx bxs-camera"></i>
             </div>
             <input
@@ -157,14 +130,14 @@ const UpdateProfile = () => {
               onChange={handleFileChange}
             />
           </div>
-          <p className="text-xs text-gray-400">Click photo to change</p>
+          <p className="text-xs text-gray-400 mt-2 font-medium">Click photo to upload new avatar</p>
         </div>
 
         {/* Form Fields */}
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-600">
-              Name
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Full Name
             </label>
             <div className="relative">
               <input
@@ -173,23 +146,24 @@ const UpdateProfile = () => {
                 value={formData.name}
                 onChange={handleChange}
                 disabled={edit !== "name"}
-                className={`block w-full rounded-sm border border-gray-300 px-3 py-2 pr-10 text-sm text-gray-600 outline-none transition-colors focus:border-green-500 ${
+                className={`w-full px-3.5 py-2.5 pr-10 text-sm rounded-xl border transition-all outline-none ${
                   edit !== "name"
-                    ? "bg-gray-100 cursor-not-allowed"
-                    : "bg-white"
+                    ? "bg-gray-50 text-gray-600 border-gray-200 cursor-not-allowed"
+                    : "bg-white text-gray-900 border-(--primaryColor) ring-2 ring-orange-100"
                 }`}
               />
-              <i
-                className="bx bx-edit-alt absolute top-2 right-2 text-xl cursor-pointer text-blue-400"
+              <button
+                type="button"
+                className="bx bx-edit-alt absolute top-1/2 -translate-y-1/2 right-3 text-lg cursor-pointer text-gray-400 hover:text-(--primaryColor)"
                 onClick={() => handleEdit("name")}
-              ></i>
+                title="Edit field"
+              />
             </div>
           </div>
 
-          {/* Phone Field */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-600">
-              Phone
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Phone Number
             </label>
             <div className="relative">
               <input
@@ -198,24 +172,25 @@ const UpdateProfile = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 disabled={edit !== "phone"}
-                className={`block w-full rounded-sm border border-gray-300 px-3 py-2 pr-10 text-sm text-gray-600 outline-none transition-colors focus:border-green-500 ${
-                  edit !== "phone"
-                    ? "bg-gray-100 cursor-not-allowed"
-                    : "bg-white"
-                }`}
                 maxLength={10}
+                className={`w-full px-3.5 py-2.5 pr-10 text-sm rounded-xl border transition-all outline-none ${
+                  edit !== "phone"
+                    ? "bg-gray-50 text-gray-600 border-gray-200 cursor-not-allowed"
+                    : "bg-white text-gray-900 border-(--primaryColor) ring-2 ring-orange-100"
+                }`}
               />
-              <i
-                className="bx bx-edit-alt absolute top-2 right-2 text-xl cursor-pointer text-blue-400"
+              <button
+                type="button"
+                className="bx bx-edit-alt absolute top-1/2 -translate-y-1/2 right-3 text-lg cursor-pointer text-gray-400 hover:text-(--primaryColor)"
                 onClick={() => handleEdit("phone")}
-              ></i>
+                title="Edit field"
+              />
             </div>
           </div>
 
-          {/* Email Field */}
           <div>
-            <label className="mb-1 block text-sm font-medium text-gray-600">
-              Email
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Email Address
             </label>
             <div className="relative">
               <input
@@ -224,90 +199,65 @@ const UpdateProfile = () => {
                 value={formData.email}
                 onChange={handleChange}
                 disabled={edit !== "email"}
-                className={`block w-full rounded-sm border border-gray-300 px-3 py-2 pr-10 text-sm text-gray-600 outline-none transition-colors focus:border-green-500 ${
+                className={`w-full px-3.5 py-2.5 pr-10 text-sm rounded-xl border transition-all outline-none ${
                   edit !== "email"
-                    ? "bg-gray-100 cursor-not-allowed"
-                    : "bg-white"
+                    ? "bg-gray-50 text-gray-600 border-gray-200 cursor-not-allowed"
+                    : "bg-white text-gray-900 border-(--primaryColor) ring-2 ring-orange-100"
                 }`}
               />
-              <i
-                className="bx bx-edit-alt absolute top-2 right-2 text-xl cursor-pointer text-blue-400"
+              <button
+                type="button"
+                className="bx bx-edit-alt absolute top-1/2 -translate-y-1/2 right-3 text-lg cursor-pointer text-gray-400 hover:text-(--primaryColor)"
                 onClick={() => handleEdit("email")}
-              ></i>
+                title="Edit field"
+              />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Gender
+            </label>
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-(--primaryColor) focus:bg-white text-gray-700 transition-all capitalize"
+            >
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div className="sm:col-span-2">
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              name="dob"
+              value={formData.dob}
+              onChange={handleChange}
+              className="w-full px-3.5 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-(--primaryColor) focus:bg-white text-gray-700 transition-all"
+            />
           </div>
         </div>
 
-        {/* Gender Field */}
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Gender
-          </label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="px-3 py-2 border border-gray-300 outline-none text-gray-600 block w-full rounded-sm text-sm focus:border-green-500 transition-colors"
-          >
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        {/* DOB Field */}
-        <div>
-          <label className="block text-sm font-medium text-gray-600">
-            Date of Birth
-          </label>
-          <input
-            type="date"
-            name="dob"
-            value={formData.dob}
-            onChange={handleChange}
-            className="px-3 py-2 border border-gray-300 outline-none text-gray-600 block w-full rounded-sm text-sm focus:border-green-500 transition-colors"
-            maxLength={10}
-          />
-        </div>
-
-        <div className="flex items-center justify-end pt-4">
+        <div className="flex items-center justify-end pt-4 border-t border-gray-100">
           <button
             type="submit"
             disabled={loading}
-            className={`px-6 py-2 rounded-sm text-sm text-white cursor-pointer transition-all ${
-              loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
-            }`}
+            className="px-6 py-2.5 bg-(--primaryColor) hover:bg-(--primaryHoverColor) text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-orange-300 transition-all cursor-pointer disabled:opacity-60 flex items-center gap-1.5"
           >
-            {loading ? "Updating..." : "Save Changes"}
+            {loading && <i className="bx bx-loader-alt animate-spin text-base"></i>}
+            <span>{loading ? "Saving..." : "Save Profile Changes"}</span>
           </button>
         </div>
       </form>
-
-      {/* --- Delete Profile --- */}
-      {/* <div className="mt-10 pt-6 border-t border-gray-200">
-        <h3 className="text-sm font-bold text-red-600 uppercase tracking-wider mb-2">
-          Danger Zone
-        </h3>
-        <div className="flex items-center justify-between p-4 bg-red-50 rounded-md border border-red-100">
-          <div>
-            <p className="text-sm font-semibold text-gray-800">
-              Delete this account
-            </p>
-            <p className="text-xs text-gray-500">
-              Once you delete your account, there is no going back.
-            </p>
-          </div>
-          <button
-            onClick={handleDeleteAccount}
-            type="button"
-            className="text-sm font-semibold text-white px-4 py-2 bg-red-500 rounded-sm hover:bg-red-600 transition duration-300 cursor-pointer shadow-sm"
-          >
-            Delete Account
-          </button>
-        </div>
-      </div> */}
     </div>
   );
 };
+
 export default UpdateProfile;

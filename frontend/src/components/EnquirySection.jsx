@@ -15,28 +15,31 @@ const EnquirySection = () => {
   const handleModalClose = () => {
     setIsOpen(false);
   };
+
   return (
-    <div
-      className="h-100 w-full relative mt-12"
+    <section
+      className="relative min-h-[360px] md:min-h-[400px] w-full flex items-center justify-center my-12 py-16"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-[#004274cc]/80"></div>
-      <div className="container mx-auto flex items-center justify-center h-full">
-        <div className="z-10 flex items-center justify-center flex-col space-y-6">
-          <h6 className="text-sm font-bold text-white p-2 bg-gray-50/30 rounded-lg">
-            {content.topTitle}
-          </h6>
+      <div className="absolute inset-0 bg-[#004274]/90 backdrop-blur-xs"></div>
 
-          <h3 className="text-2xl md:text-3xl text-white font-semibold max-w-230 text-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-center">
+        <div className="flex items-center justify-center flex-col text-center max-w-3xl space-y-5">
+          <span className="text-xs font-bold tracking-wider uppercase text-white/90 px-3.5 py-1.5 bg-white/15 rounded-full backdrop-blur-xs border border-white/20">
+            {content.topTitle}
+          </span>
+
+          <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-extrabold leading-tight">
             {content.mainHeading}
           </h3>
-          <div className="flex items-center gap-4">
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2 w-full sm:w-auto">
             <button
-              className="px-6 py-2 border border-[var(--whiteColor)] text-white rounded-md hover:bg-(--primaryColor) transition-colors font-semibold cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3 bg-(--primaryColor) hover:bg-(--primaryHoverColor) text-white rounded-xl shadow-lg shadow-orange-950/20 font-bold text-sm transition-all active:scale-95 cursor-pointer"
               onClick={handleModalOpen}
             >
               {actions.primary.label}
@@ -44,15 +47,16 @@ const EnquirySection = () => {
 
             <Link
               to={actions.secondary.link}
-              className="px-6 py-2 bg-white text-(--primaryColor) rounded-md hover:bg-gray-100 transition-colors font-semibold cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3 bg-white/10 hover:bg-white text-white hover:text-gray-900 border border-white/30 rounded-xl font-bold text-sm transition-all text-center cursor-pointer backdrop-blur-xs"
             >
               {actions.secondary.label}
             </Link>
           </div>
         </div>
       </div>
+
       <EnquiryModal isOpen={isOpen} handleModalClose={handleModalClose} />
-    </div>
+    </section>
   );
 };
 

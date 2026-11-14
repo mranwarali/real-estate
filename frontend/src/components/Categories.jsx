@@ -6,27 +6,30 @@ import { getProperties } from "../redux/property/propertySlice";
 
 const Categories = () => {
   const dispatch = useDispatch();
-  const { properties } = useSelector((state) => state.property);
-  console.log("properties", properties);
+  const { properties, isLoading } = useSelector((state) => state.property);
 
   useEffect(() => {
-    dispatch(getProperties());
-  }, [dispatch]);
-
-  // const counts = properties.reduce((acc, item) => {
-  //   const catName = item.propertyType || "Uncategorized";
-  //   acc[catName] = (acc[catName] || 0) + 1;
-  //   return acc;
-  // }, {});
+    if (!properties || properties.length === 0) {
+      dispatch(getProperties());
+    }
+  }, [dispatch, properties]);
 
   const counts = (Array.isArray(properties) ? properties : []).reduce(
     (acc, item) => {
-      const catName = item.propertyType || "Uncategorized";
+      const catName = item.propertyType || "Apartment";
       acc[catName] = (acc[catName] || 0) + 1;
       return acc;
     },
     {},
   );
+
+  // Default property categories to show even if DB has few
+  const defaultCategories = ["Apartment", "House", "Villa", "Commercial", "Studio", "Farmhouse"];
+  defaultCategories.forEach((cat) => {
+    if (counts[cat] === undefined) {
+      counts[cat] = 0;
+    }
+  });
 
   const categoryIcons = {
     Apartment: "bx-building-house",
@@ -34,22 +37,17 @@ const Categories = () => {
     Farmhouse: "bx-landscape",
     Villa: "bx-home-heart",
     Commercial: "bx-store-alt",
+    Studio: "bx-layer",
     Uncategorized: "bx-images",
   };
 
-  // const categoryList = Object.keys(counts).map((name) => ({
-  //   name,
-  //   count: counts[name],
-  //   iconClass: categoryIcons[iconName],
-  // }));
-
   const categoryList = Object.keys(counts).map((name) => {
-    const iconName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-
+    const formatted = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     return {
-      name,
+      name: formatted,
+      rawName: name,
       count: counts[name],
-      iconClass: categoryIcons[iconName] || categoryIcons["Uncategorized"],
+      iconClass: categoryIcons[formatted] || categoryIcons["Apartment"],
     };
   });
 
@@ -58,66 +56,93 @@ const Categories = () => {
     arrows: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     initialSlide: 0,
     autoplay: true,
-    autoplaySpeed: 1500,
-    infinite: true,
+    autoplaySpeed: 2500,
+    infinite: categoryList.length > 4,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: false,
-          arrows: false,
-          autoplay: true,
-          autoplaySpeed: 1500,
+          slidesToScroll: 1,
+          infinite: categoryList.length > 3,
         },
       },
       {
-        breakpoint: 600,
-        settings: { slidesToShow: 2, slidesToScroll: 2 },
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: categoryList.length > 2,
+        },
       },
       {
         breakpoint: 480,
-        settings: { slidesToShow: 1, slidesToScroll: 1 },
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
       },
     ],
   };
 
   return (
-    <div className="container mx-auto pt-8">
-      {/* <div className="py-4 mb-2 px-4 sm:px-0 ">
-        <h2 className="text-xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          Explore Apartment Types
-        </h2>
-      </div> */}
-      <Slider {...settings}>
-        {categoryList.map((cat, index) => (
-          <div key={index} className="category-card group">
-            <div className="m-2.5 p-5 bg-(--primaryColor)/5 group-hover:bg-(--primaryColor) transition duration-300 text-center rounded-sm">
-              <div className="mb-4">
-                <i
-                  className={`bx ${cat.iconClass} text-5xl text-(--primaryColor) group-hover:text-[var(--whiteColor)] transition duration-300 `}
-                ></i>
-              </div>
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-(--primaryColor)">
+            Categories
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 mt-1">
+            Explore by Property Type
+          </h2>
+        </div>
+        <Link
+          to="/properties"
+          className="text-sm font-semibold text-gray-600 hover:text-(--primaryColor) inline-flex items-center gap-1 transition-colors"
+        >
+          <span>All Categories</span>
+          <i className="bx bx-right-arrow-alt text-lg"></i>
+        </Link>
+      </div>
 
+      {isLoading && categoryList.length === 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="h-36 rounded-2xl bg-gray-100 animate-pulse p-5 flex flex-col items-center justify-center"
+            />
+          ))}
+        </div>
+      ) : (
+        <Slider {...settings} className="-mx-2">
+          {categoryList.map((cat, index) => (
+            <div key={index} className="px-2 pb-2">
               <Link
-                to={`/properties?propertyType=${cat.name}`}
-                className="capitalize text-md font-semibold text-(--primaryColor) mb-4 block group-hover:text-[var(--whiteColor)] transition duration-300 "
+                to={`/properties?propertyType=${cat.rawName}`}
+                className="group block p-5 sm:p-6 bg-white hover:bg-(--primaryColor) border border-gray-100 hover:border-(--primaryColor) rounded-2xl shadow-xs hover:shadow-xl transition-all duration-300 text-center"
               >
-                {cat.name}
+                <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-orange-50 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+                  <i
+                    className={`bx ${cat.iconClass} text-3xl text-(--primaryColor) group-hover:text-white transition-colors`}
+                  ></i>
+                </div>
+
+                <h3 className="capitalize text-base font-bold text-gray-800 group-hover:text-white mb-1 transition-colors">
+                  {cat.name}
+                </h3>
+                <p className="text-xs text-gray-500 group-hover:text-white/80 transition-colors">
+                  {cat.count} {cat.count === 1 ? "Property" : "Properties"}
+                </p>
               </Link>
-              <p className="text-sm text-gray-500 group-hover:text-[var(--whiteColor)] transition duration-300 ">
-                {cat.count} Properties
-              </p>
             </div>
-          </div>
-        ))}
-      </Slider>
-    </div>
+          ))}
+        </Slider>
+      )}
+    </section>
   );
 };
 

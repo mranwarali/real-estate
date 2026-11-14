@@ -29,15 +29,30 @@ import Blogs from "./pages/blog/Blogs";
 import BlogPost from "./pages/blog/BlogPost";
 import About from "./pages/About";
 
-
 function App() {
   const [loading, setLoading] = useState(true);
-  // const isLoggedIn = useState((state) => state.auth);
+
   const routes = [
-    // Pages Routes
+    // Core Page Routes
     { path: "/", element: <Home /> },
+    { path: "/about", element: <About /> },
+    { path: "/about-us", element: <About /> },
+    { path: "/services", element: <Services /> },
+    { path: "/faqs", element: <Faqs /> },
     { path: "/contact", element: <Contact /> },
     { path: "/post-property", element: <PostProperty /> },
+
+    // Properties Routes
+    { path: "/properties", element: <PropertiesPage /> },
+    { path: "/property/:id", element: <PropertyDetails /> },
+    { path: "/properties/category/:category", element: <PropertiesPage /> },
+
+    // Blog Routes
+    { path: "/blogs", element: <Blogs /> },
+    { path: "/blog", element: <Blogs /> },
+    { path: "/blog/:id", element: <BlogPost /> },
+
+    // Settings Routes
     {
       path: "/settings",
       element: <Settings />,
@@ -48,18 +63,6 @@ function App() {
         { path: "change-password", element: <ChangePassword /> },
       ],
     },
-    { path: "/*", element: <NotFound /> },
-    { path: "/about-us", element: < About /> },
-    { path: "/services", element: <Services /> },
-    { path: "/faqs", element: <Faqs /> },
-    { path: "/blogs", element: <Blogs /> },
-    { path: "/blog/:id", element: <BlogPost /> },
-    // { path: "/properties/:id", element: <PropertyDetails /> },
-    // { path: "/properties/:category", element: <PropertiesPage /> },
-
-    { path: "/properties", element: <PropertiesPage /> },
-    { path: "/property/:id", element: <PropertyDetails /> },
-    { path: "/properties/category/:category", element: <PropertiesPage /> },
 
     // Auth Routes
     { path: "/login", element: <Login /> },
@@ -68,45 +71,49 @@ function App() {
     { path: "/verify-email/:token", element: <VerifyEmail /> },
     { path: "/forget-password", element: <ForgetPassword /> },
     { path: "/reset-password/:token", element: <ResetPassword /> },
+
+    // Wildcard 404 Route (ALWAYS AT THE END)
+    { path: "/*", element: <NotFound /> },
   ];
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 800);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
-    return (
-      <>
-        <Loader />
-      </>
-    );
+    return <Loader />;
   }
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} />
       <Toaster position="top-center" reverseOrder={false} />
       <BrowserRouter>
-        <Header />
-        <Routes>
-          {routes.map((route, i) => (
-            <Route key={i} path={route.path} element={route.element}>
-              {route.children &&
-                route.children.map((child, j) => (
-                  <Route
-                    key={j}
-                    index={child.index}
-                    path={child.path}
-                    element={child.element}
-                  />
-                ))}
-            </Route>
-          ))}
-        </Routes>
-        <Footer />
-        <BackToTop />
+        <div className="min-h-screen flex flex-col justify-between bg-white text-gray-900 selection:bg-orange-100 selection:text-(--primaryColor)">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              {routes.map((route, i) => (
+                <Route key={i} path={route.path} element={route.element}>
+                  {route.children &&
+                    route.children.map((child, j) => (
+                      <Route
+                        key={j}
+                        index={child.index}
+                        path={child.path}
+                        element={child.element}
+                      />
+                    ))}
+                </Route>
+              ))}
+            </Routes>
+          </main>
+          <Footer />
+          <BackToTop />
+        </div>
       </BrowserRouter>
     </>
   );

@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import Logo from "../assets/images/white-logo.svg";
-import { footerLinks, address } from "../data/data";
+import { footerLinks, address, footerData } from "../data/data";
 import Newsletter from "./Newsletter";
 import { useDispatch, useSelector } from "react-redux";
 import { getProperties } from "../redux/property/propertySlice";
 import { Link } from "react-router";
-import { footerData } from "../data/data";
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -13,24 +12,31 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    dispatch(getProperties());
-  }, [dispatch]);
+    if (!properties || properties.length === 0) {
+      dispatch(getProperties());
+    }
+  }, [dispatch, properties]);
 
   const counts = (Array.isArray(properties) ? properties : []).reduce(
     (acc, item) => {
       const catName = item.propertyType;
-      acc[catName] = (acc[catName] || 0) + 1;
+      if (catName) {
+        acc[catName] = (acc[catName] || 0) + 1;
+      }
       return acc;
     },
     {},
   );
 
-  const categoryList = Object.keys(counts).map((name) => {
-    return {
-      name,
-      count: counts[name],
-    };
+  const defaultCats = ["Apartment", "House", "Villa", "Commercial"];
+  defaultCats.forEach((c) => {
+    if (counts[c] === undefined) counts[c] = 0;
   });
+
+  const categoryList = Object.keys(counts).slice(0, 5).map((name) => ({
+    name,
+    count: counts[name],
+  }));
 
   const cityCounts = (Array.isArray(properties) ? properties : []).reduce(
     (acc, item) => {
@@ -43,187 +49,212 @@ const Footer = () => {
     {},
   );
 
-  const cityList = Object.keys(cityCounts).map((name) => {
-    return {
-      name,
-      count: cityCounts[name],
-    };
+  const defaultCities = ["Mumbai", "Bengaluru", "Noida", "Gurugram"];
+  defaultCities.forEach((c) => {
+    if (cityCounts[c] === undefined) cityCounts[c] = 0;
   });
 
+  const cityList = Object.keys(cityCounts).slice(0, 5).map((name) => ({
+    name,
+    count: cityCounts[name],
+  }));
+
   return (
-    <div className="bg-[var(--footerColor)]">
-      <div className="container mx-auto px-4 md:px-0">
-        {/* newsletter  */}
+    <footer className="bg-(--footerColor) text-white border-t border-gray-800">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Newsletter Section */}
         <Newsletter />
 
-        {/* footer  */}
-        <div className="py-5 md:py-13">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-            <div>
-              <div className="cursor-pointer">
-                <img src={Logo} alt="Logo" className="h-8 w-auto mb-4" />
-                <p className="text-md text-[var(--whiteColor)] mb-4">
-                  {footerData.companyDesc}
-                </p>
-                <ul className="flex items-center gap-4">
-                  <li className="border border-gray-100 rounded-full">
-                    <a href="" className="text-2xl text-[var(--whiteColor)]">
-                      <i className="bx bxl-facebook-circle p-2"></i>
-                    </a>
-                  </li>
-                  <li className="border border-gray-100 rounded-full">
-                    <a href="" className="text-2xl text-[var(--whiteColor)]">
-                      <i className="bx bxl-twitter p-2"></i>
-                    </a>
-                  </li>
-                  <li className="border border-gray-100 rounded-full">
-                    <a href="" className="text-2xl text-[var(--whiteColor)]">
-                      <i className="bx bxl-linkedin p-2"></i>
-                    </a>
-                  </li>
-                  <li className="border border-gray-100 rounded-full">
-                    <a href="" className="text-2xl text-[var(--whiteColor)]">
-                      <i className="bx bxl-youtube p-2"></i>
-                    </a>
-                  </li>
-                </ul>
+        {/* Footer Main Links */}
+        <div className="py-10 sm:py-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10">
+            {/* Column 1: Brand Info & Socials */}
+            <div className="sm:col-span-2 lg:col-span-1">
+              <Link to="/" className="inline-block mb-4">
+                <img src={Logo} alt="Dream Home" className="h-8 w-auto" />
+              </Link>
+              <p className="text-xs sm:text-sm text-gray-300 mb-6 leading-relaxed">
+                {footerData.companyDesc}
+              </p>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-(--primaryColor) flex items-center justify-center text-lg text-white transition-colors"
+                  aria-label="Facebook"
+                >
+                  <i className="bx bxl-facebook"></i>
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-(--primaryColor) flex items-center justify-center text-lg text-white transition-colors"
+                  aria-label="Twitter"
+                >
+                  <i className="bx bxl-twitter"></i>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-(--primaryColor) flex items-center justify-center text-lg text-white transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <i className="bx bxl-linkedin"></i>
+                </a>
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-(--primaryColor) flex items-center justify-center text-lg text-white transition-colors"
+                  aria-label="Instagram"
+                >
+                  <i className="bx bxl-instagram"></i>
+                </a>
               </div>
             </div>
 
-            {/* Company */}
-            <>
-              {footerLinks.map((section, idx) => (
-                <div key={idx}>
-                  <h3 className="text-lg font-semibold mb-4 text-[var(--whiteColor)]">
-                    {section.heading}
-                  </h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item, i) => (
-                      <li key={i}>
-                        <a
-                          href={item.link}
-                          className="text-[var(--whiteColor)] text-sm transition-colors"
-                        >
-                          {item.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </>
+            {/* Column 2: Quick Links */}
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+                Quick Links
+              </h3>
+              <ul className="space-y-2.5 text-sm text-gray-300">
+                <li>
+                  <Link to="/" className="hover:text-(--primaryColor) transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/properties" className="hover:text-(--primaryColor) transition-colors">
+                    All Properties
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/about-us" className="hover:text-(--primaryColor) transition-colors">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/services" className="hover:text-(--primaryColor) transition-colors">
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/faqs" className="hover:text-(--primaryColor) transition-colors">
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/blogs" className="hover:text-(--primaryColor) transition-colors">
+                    Blog & News
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/contact" className="hover:text-(--primaryColor) transition-colors">
+                    Contact Us
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-            {/* Categories Section */}
-            <>
-              {/* {categories.map((section, idx) => ( */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-[var(--whiteColor)]">
-                  Categories
-                </h3>
-                <ul className="space-y-2">
-                  {categoryList.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center justify-between pr-10"
+            {/* Column 3: Categories */}
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+                Categories
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                {categoryList.map((item, i) => (
+                  <li key={i} className="flex items-center justify-between">
+                    <Link
+                      to={`/properties?propertyType=${item.name}`}
+                      className="text-gray-300 hover:text-(--primaryColor) transition-colors capitalize text-xs sm:text-sm"
                     >
-                      <Link
-                        // href={item.link}
-                        to={`/properties?propertyType=${item.name}`}
-                        className="text-[var(--whiteColor)] text-sm transition-colors hover:text-(--primaryColor) transition duration-300 capitalize"
-                      >
-                        {item.name}
-                      </Link>
-                      <span className="bg-gray-800 text-xs px-2 py-1 rounded-full text-[var(--whiteColor)]">
-                        {item.count}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* ))} */}
-            </>
+                      {item.name}
+                    </Link>
+                    <span className="bg-white/10 text-gray-300 text-[11px] px-2 py-0.5 rounded-full font-medium">
+                      {item.count}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            {/* Top Cities Section */}
-            <>
-              {/* {cities.map((section, idx) => (
-                <div key={idx}>
-                  <h3 className="text-lg font-semibold mb-4 text-[var(--whiteColor)]">
-                    {section.heading}
-                  </h3>
-                  <ul className="space-y-2">
-                    {section.items.map((item, i) => (
-                      <li key={i}>
-                        <a
-                          href={item.link}
-                          className="text-[var(--whiteColor)] text-sm transition-colors flex items-center"
-                        >
-                          <i className="bx bx-chevron-right mr-1"></i>{" "}
-                          {item.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))} */}
-
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-[var(--whiteColor)]">
-                  Top Cities
-                </h3>
-                <ul className="space-y-2">
-                  {cityList.map((city, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center justify-between pr-10"
+            {/* Column 4: Top Cities */}
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+                Top Cities
+              </h3>
+              <ul className="space-y-2.5 text-sm">
+                {cityList.map((city, i) => (
+                  <li key={i} className="flex items-center justify-between">
+                    <Link
+                      to={`/properties?city=${city.name}`}
+                      className="text-gray-300 hover:text-(--primaryColor) transition-colors capitalize text-xs sm:text-sm flex items-center"
                     >
-                      <Link
-                        to={`/properties?city=${city.name}`}
-                        className="text-[var(--whiteColor)] text-sm transition-colors hover:text-(--primaryColor) transition duration-300 capitalize flex citys-center"
-                      >
-                        <i className="bx bx-chevron-right mr-1"></i>
-                        {city.name}
-                      </Link>
-                      <span className="bg-gray-800 text-xs px-2 py-1 rounded-full text-[var(--whiteColor)]">
-                        {city.count}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </>
+                      <i className="bx bx-chevron-right mr-1 text-(--primaryColor)"></i>
+                      {city.name}
+                    </Link>
+                    <span className="bg-white/10 text-gray-300 text-[11px] px-2 py-0.5 rounded-full font-medium">
+                      {city.count}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            {/* Address & Contact Section */}
-            <>
-              {address.map((section, idx) => (
-                <div key={idx}>
-                  <h3 className="text-lg font-semibold mb-4 text-[var(--whiteColor)]">
-                    {section.heading}
-                  </h3>
-                  <ul className="space-y-4">
-                    {section.items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <i
-                          className={`${item.icon} text-xl text-[var(--whiteColor)]`}
-                        ></i>
-                        <span className="text-gray-300 text-sm leading-relaxed">
-                          {item.value}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </>
+            {/* Column 5: Address & Contact */}
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-4">
+                Contact Office
+              </h3>
+              <ul className="space-y-3.5 text-xs sm:text-sm text-gray-300">
+                <li className="flex items-start gap-2.5">
+                  <i className="bx bx-map text-lg text-(--primaryColor) shrink-0 mt-0.5"></i>
+                  <span className="leading-relaxed">
+                    BKC Financial Centre, Bandra East, Mumbai, Maharashtra 400051
+                  </span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <i className="bx bx-envelope text-lg text-(--primaryColor) shrink-0"></i>
+                  <a href="mailto:support@dreamhome.com" className="hover:text-(--primaryColor) transition-colors">
+                    support@dreamhome.com
+                  </a>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <i className="bx bx-phone-call text-lg text-(--primaryColor) shrink-0"></i>
+                  <a href="tel:+911800123456" className="hover:text-(--primaryColor) transition-colors">
+                    +91 1800 123 456
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div className="py-5 border-t border-gray-300">
-          <p className="text-sm text-[var(--whiteColor)] text-center">
-            {currentYear} {footerData.copyrightPara}
+        {/* Copyright Bar */}
+        <div className="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
+          <p>
+            © {currentYear} Dream Home. All rights reserved.
           </p>
+          <div className="flex items-center gap-4">
+            <Link to="/faqs" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link to="/faqs" className="hover:text-white transition-colors">
+              Terms of Service
+            </Link>
+            <span>•</span>
+            <Link to="/contact" className="hover:text-white transition-colors">
+              Support
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -1,4 +1,3 @@
-// import React, { useEffect } from "react";
 import Logo from "../../assets/images/header-logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -20,11 +19,12 @@ const Header = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // console.log("user", user);
 
   useEffect(() => {
-    dispatch(fetchProfile());
-  }, [dispatch]);
+    if (isLoggedIn) {
+      dispatch(fetchProfile());
+    }
+  }, [dispatch, isLoggedIn]);
 
   // navigations
   const navLinks = [
@@ -34,15 +34,9 @@ const Header = () => {
       link: "#",
       name: "Properties",
       dropdownLinks: [
-        // { id: 21, link: "/buy", name: "Buy" },
-        // { id: 23, link: "/rent", name: "Rent" },
         { id: 21, link: "/properties?listingType=sales", name: "Buy" },
         { id: 23, link: "/properties?listingType=rent", name: "Rent" },
-        {
-          id: 22,
-          link: "/post-property",
-          name: "Sell",
-        },
+        { id: 22, link: "/post-property", name: "Sell" },
       ],
     },
     { id: 3, link: "/blogs", name: "Blog" },
@@ -59,7 +53,7 @@ const Header = () => {
     { id: 5, link: "/contact", name: "Contact Us" },
   ];
 
-  //logout
+  // logout
   const handleLogout = async () => {
     try {
       await axios.post(`${BASE_API}/auth/logout`);
@@ -68,52 +62,65 @@ const Header = () => {
       navigate("/login");
     } catch (error) {
       console.error("Logout failed", error);
-      toast.error("Logout failed. Please try again.");
+      dispatch(logout());
+      toast.success("Logged out successfully");
+      navigate("/login");
     }
   };
 
   return (
-    <nav className="bg-white py-4 shadow-sm relative">
-      <div className="container mx-auto px-4 md:px-0">
-        <div className="flex items-center justify-between">
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md py-3.5 shadow-sm border-b border-gray-100 transition-all">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-4">
+          {/* Mobile Menu Button */}
           <button
-            className="block md:hidden text-3xl text-(--grayColor)"
+            type="button"
+            className="block md:hidden text-2xl text-gray-700 hover:text-(--primaryColor) p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
             onClick={() => setIsMenuOpen(true)}
+            aria-label="Open Menu"
           >
-            <i className="bx bx-menu cursor-pointer"></i>
+            <i className="bx bx-menu text-2xl align-middle"></i>
           </button>
+
           {/* Logo */}
-          <div className="cursor-pointer" onClick={() => navigate("/")}>
-            <img src={Logo} alt="Logo" className="h-8 w-auto" />
-          </div>
+          <Link to="/" className="cursor-pointer flex items-center shrink-0">
+            <img src={Logo} alt="Dream Home Logo" className="h-7 sm:h-8 w-auto" />
+          </Link>
 
-          {/* Navigation */}
-          <ul className="flex items-center gap-5 lg:gap-8">
+          {/* Desktop Navigation Links */}
+          <ul className="hidden md:flex items-center gap-6 lg:gap-8">
             <Navigation navLinks={navLinks} />
+          </ul>
 
-            {/* User Profile Icon */}
+          {/* Right Action Icons & CTA */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* User Profile Menu */}
             <ProfileMenu
               isLoggedIn={isLoggedIn}
               user={profile}
               handleLogout={handleLogout}
             />
 
-            {/* Post Property Button */}
+            {/* Post Property Button (desktop) */}
             <Link
               to="/post-property"
-              className="text-sm lg:text-md  text-white  font-semibold px-2 md:px-5 py-1 md:py-2.5 bg-(--primaryColor) rounded-md hover:opacity-90 transition-opacity shadow-sm hidden md:block"
+              className="text-xs sm:text-sm text-white font-semibold px-3 sm:px-5 py-2 sm:py-2.5 bg-(--primaryColor) hover:bg-(--primaryHoverColor) rounded-lg transition-all shadow-sm shadow-orange-200 active:scale-95 hidden sm:inline-flex items-center gap-1.5"
             >
-              Post Property
+              <i className="bx bx-plus-circle text-base"></i>
+              <span>Post Property</span>
             </Link>
-          </ul>
+          </div>
         </div>
       </div>
 
-      {/* mobile view */}
+      {/* Mobile Drawer Menu */}
       <MobileMenu
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         navLinks={navLinks}
+        isLoggedIn={isLoggedIn}
+        user={profile}
+        handleLogout={handleLogout}
       />
     </nav>
   );

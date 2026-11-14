@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const BASE_API = import.meta.env.VITE_BASE_URL;
@@ -22,7 +22,7 @@ const VerifyEmail = () => {
         verificationStarted.current = true;
         await axios.get(`${BASE_API}/auth/verify-email/${token}`);
         setStatus("success");
-        setTimeout(() => navigate("/login"), 4000);
+        setTimeout(() => navigate("/login"), 3000);
       } catch (error) {
         console.error("Verification error:", error);
         setStatus("error");
@@ -33,64 +33,66 @@ const VerifyEmail = () => {
   }, [token, navigate]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/70 p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-gray-100 p-8 text-center transition-all">
         {status === "verifying" && (
-          <div className="space-y-6">
-            <div className="flex justify-center">
-              <i className="bx bx-loader-alt bx-spin text-6xl text-emerald-500"></i>
+          <div className="space-y-4">
+            <div className="w-16 h-16 rounded-full bg-orange-100 text-(--primaryColor) flex items-center justify-center mx-auto text-3xl animate-spin">
+              <i className="bx bx-loader-alt"></i>
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-gray-700">
-                Verifying...
+              <h2 className="text-2xl font-bold text-gray-900">
+                Verifying Email...
               </h2>
-              <p className="text-gray-500 mt-2 text-sm">
-                Please wait while we confirm your email address.
+              <p className="text-gray-500 mt-1 text-xs sm:text-sm">
+                Please wait a moment while we confirm your email address.
               </p>
             </div>
           </div>
         )}
 
         {status === "success" && (
-          <div className="space-y-6 animate-fade-in">
-            <div className="flex justify-center">
-              <div className="bg-emerald-100 p-4 rounded-full animate-pulse">
-                <i className="bx bxs-check-shield text-6xl text-emerald-600"></i>
-              </div>
+          <div className="space-y-4">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-4xl shadow-sm">
+              <i className="bx bx-check"></i>
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-gray-700">
+              <h2 className="text-2xl font-bold text-gray-900">
                 Email Verified!
               </h2>
-              <p className="text-gray-500 mt-2">
-                Awesome! You're all set. Redirecting you to login...
+              <p className="text-gray-500 mt-1 text-xs sm:text-sm">
+                Your email has been confirmed. Redirecting you to login...
               </p>
             </div>
+            <Link
+              to="/login"
+              className="mt-4 inline-block px-6 py-2.5 bg-(--primaryColor) text-white font-bold text-xs sm:text-sm rounded-xl shadow-md"
+            >
+              Go to Login
+            </Link>
           </div>
         )}
 
         {status === "error" && (
-          <div className="space-y-6">
-            <div className="flex justify-center">
-              <div className="bg-red-100  rounded-full">
-                <i className="bx bx-error-circle text-4xl text-red-600 p-4"></i>
-              </div>
+          <div className="space-y-4">
+            <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto text-4xl shadow-sm">
+              <i className="bx bx-error-circle"></i>
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-gray-700">
-                Invalid Link
+              <h2 className="text-2xl font-bold text-gray-900">
+                Invalid or Expired Link
               </h2>
-              <p className="text-gray-500 mt-2">
-                Please check if the link is valid or resend verification email.
+              <p className="text-gray-500 mt-1 text-xs sm:text-sm">
+                This verification link has expired or has already been used.
               </p>
             </div>
-            <button
-              onClick={() => navigate("/login")}
-              className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm py-2 px-6 rounded-md transition-all shadow-lg"
+            <Link
+              to="/login"
+              className="mt-4 inline-flex items-center gap-1.5 px-6 py-2.5 bg-gray-900 hover:bg-black text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all"
             >
-              <i className="bx bx-log-in-circle text-xl"></i>
-              Go to Login
-            </button>
+              <i className="bx bx-log-in text-base"></i>
+              <span>Back to Login</span>
+            </Link>
           </div>
         )}
       </div>

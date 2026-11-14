@@ -1,7 +1,5 @@
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import Breadcrumbs from "../../components/Breadcrumbs";
 
@@ -17,10 +15,9 @@ const BlogPost = () => {
       try {
         setLoading(true);
         const res = await axios.get(`${BASE_API}/blogs/get-post/${id}`);
-        console.log("post", res.data.data);
         setPost(res.data.data);
       } catch (error) {
-        console.error(error);
+        console.error("Blog post error:", error);
       } finally {
         setLoading(false);
       }
@@ -31,53 +28,66 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="text-center py-20">
-        <p className="text-xl text-gray-600">Loading post details...</p>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-12">
+        <div className="h-6 bg-gray-200 rounded w-1/4 mb-4 animate-pulse"></div>
+        <div className="h-10 bg-gray-200 rounded w-3/4 mb-6 animate-pulse"></div>
+        <div className="h-[360px] bg-gray-100 rounded-2xl mb-8 animate-pulse"></div>
       </div>
     );
   }
 
   if (!post) {
     return (
-      <div className="text-center py-20">
-        <p className="text-xl text-gray-600 mb-4">Post not found.</p>
-        <Link to="/blogs" className="text-(--primaryColor) underline">
+      <div className="container mx-auto px-4 py-20 text-center">
+        <div className="w-16 h-16 rounded-full bg-red-100 text-red-500 flex items-center justify-center mx-auto mb-4 text-3xl">
+          <i className="bx bx-error-circle"></i>
+        </div>
+        <h2 className="text-2xl font-bold text-gray-800">Article Not Found</h2>
+        <p className="text-gray-500 mt-2 mb-6">
+          The blog post you're looking for doesn't exist or has been relocated.
+        </p>
+        <Link
+          to="/blogs"
+          className="px-6 py-2.5 bg-(--primaryColor) text-white font-semibold rounded-xl text-sm"
+        >
           Back to Blogs
         </Link>
       </div>
     );
   }
+
   return (
-    <div className="container mx-auto px-4 md:px-0 max-w-4xl py-6">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl py-6">
       <Breadcrumbs currentLabel={post.title} />
 
       <Link
         to="/blogs"
-        className="text-sm text-gray-500 hover:text-(--primaryColor) flex items-center gap-1 mb-6"
+        className="text-xs sm:text-sm text-gray-500 hover:text-(--primaryColor) inline-flex items-center gap-1.5 mb-6 transition-colors font-medium"
       >
-        <i className="bx bx-arrow-back"></i> Back to all posts
+        <i className="bx bx-arrow-back text-base"></i> Back to All Articles
       </Link>
 
-      <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-        {post.title}
-      </h1>
-
-      <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-        <span>
-          Category:{" "}
-          <strong className="text-gray-700">
-            {post.category || "Article"}
-          </strong>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="bg-orange-50 text-(--primaryColor) font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+          {post.category || "Article"}
         </span>
-        <span>•</span>
-        <span>
+        <span className="text-xs text-gray-400">•</span>
+        <span className="text-xs text-gray-500">
           {post.createdAt
-            ? new Date(post.createdAt).toLocaleDateString()
-            : "Recent"}
+            ? new Date(post.createdAt).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+            : "Recently Published"}
         </span>
       </div>
 
-      <div className="w-full h-[400px] rounded-xl overflow-hidden mb-8 border border-gray-100">
+      <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+        {post.title}
+      </h1>
+
+      <div className="w-full h-[260px] sm:h-[380px] md:h-[460px] rounded-2xl overflow-hidden mb-8 border border-gray-100 shadow-md bg-gray-100">
         <img
           src={
             post.coverImage ||
@@ -88,12 +98,28 @@ const BlogPost = () => {
         />
       </div>
 
-      <div className="prose max-w-none text-gray-700 leading-relaxed text-lg">
+      <div className="text-gray-700 leading-relaxed text-base sm:text-lg space-y-4 prose max-w-none">
         {post.content ? (
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         ) : (
           <p>{post.content}</p>
         )}
+      </div>
+
+      {/* Share / Back Bar */}
+      <div className="mt-12 pt-6 border-t border-gray-100 flex items-center justify-between">
+        <Link
+          to="/blogs"
+          className="text-sm font-bold text-(--primaryColor) hover:underline flex items-center gap-1"
+        >
+          <i className="bx bx-left-arrow-alt text-lg"></i> More Articles
+        </Link>
+        <Link
+          to="/properties"
+          className="px-5 py-2 bg-gray-900 hover:bg-black text-white text-xs sm:text-sm font-semibold rounded-xl"
+        >
+          Explore Properties
+        </Link>
       </div>
     </div>
   );

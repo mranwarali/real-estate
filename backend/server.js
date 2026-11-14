@@ -17,7 +17,7 @@ const blogRoutes = require("./routes/blogRoutes");
 
 // Config environment
 dotenv.config();
-
+ 
 // Connect db
 const { connectDB } = require("./config/db");
 connectDB();
@@ -28,12 +28,22 @@ app.use(cookieParser());
 app.use(helmet());
 
 // CORS Configuration
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, "") : null,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [
-      // "http://localhost:5173", 
-      process.env.FRONTEND_URL // Add your Vercel URL to your backend .env file
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes(origin + "/")) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })

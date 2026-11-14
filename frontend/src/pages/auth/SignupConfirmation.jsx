@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router";
 import { resendVerification } from "../../redux/auth/authSlice";
+import toast from "react-hot-toast";
 
 const SignupConfirmation = () => {
   const dispatch = useDispatch();
@@ -14,50 +15,56 @@ const SignupConfirmation = () => {
     if (email) {
       dispatch(resendVerification(email));
     } else {
-      alert("Please go back and enter your email again.");
+      toast.error("Please go back and enter your email again.");
     }
   };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full space-y-6 p-8 bg-white rounded-xl shadow-lg border border-gray-100 text-center">
+    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/70 px-4 py-12">
+      <div className="max-w-md w-full space-y-6 p-6 sm:p-8 bg-white rounded-2xl shadow-xl border border-gray-100 text-center">
         <div className="flex justify-center">
-          <div className="bg-green-100 rounded-full">
-            <i className="bx bx-envelope text-3xl text-green-500 p-3"></i>
+          <div className="w-16 h-16 bg-orange-100 text-(--primaryColor) rounded-2xl flex items-center justify-center text-3xl">
+            <i className="bx bx-envelope"></i>
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold text-gray-900">Verify your email</h2>
+        <h1 className="text-2xl font-extrabold text-gray-900">
+          Verify Your Email
+        </h1>
 
-        <p className="text-sm text-gray-600 leading-relaxed">
-          We've sent a verification link to{" "}
-          <span className="font-semibold text-gray-800">
-            {email || "abc@email.com"}
+        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+          We've sent a confirmation link to{" "}
+          <span className="font-bold text-gray-900">
+            {email || "your email address"}
           </span>
-          . Please click it to activate your account. Check your{" "}
-          <b>spam folder</b> if you don't see it.
+          . Please click the link to activate your account.
         </p>
 
-        <div className="pt-4">
-          <p className="text-sm text-gray-500 mb-4">Still can't find it?</p>
+        <div className="p-3 bg-amber-50 rounded-xl text-amber-800 text-xs">
+          💡 If you don't see it within a couple minutes, please check your <strong>spam or promotions folder</strong>.
+        </div>
+
+        <div className="pt-2">
+          <p className="text-xs text-gray-400 mb-3">Still can't find it?</p>
           <button
             onClick={handleResend}
             disabled={loading}
             type="button"
-            className={`w-full py-3 px-4 rounded-lg text-sm font-semibold text-white transition-all cursor-pointer ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700 shadow-md"
-            }`}
+            className="w-full py-2.5 px-4 rounded-xl text-sm font-bold text-white bg-(--primaryColor) hover:bg-(--primaryHoverColor) transition-all shadow-md shadow-orange-300 disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2"
           >
-            {loading ? "Sending..." : "Resend Verification Email"}
+            {loading && <i className="bx bx-loader-alt animate-spin text-base"></i>}
+            <span>{loading ? "Sending..." : "Resend Verification Email"}</span>
           </button>
         </div>
-        <Link
-          to="/login"
-          className="text-sm font-semibold text-gray-500 text-center"
-        >
-          Back to login
-        </Link>
+
+        <div className="pt-2 border-t border-gray-100">
+          <Link
+            to="/login"
+            className="text-xs sm:text-sm font-semibold text-gray-600 hover:text-(--primaryColor) inline-flex items-center gap-1 transition-colors"
+          >
+            <i className="bx bx-arrow-back text-base"></i> Back to login
+          </Link>
+        </div>
       </div>
     </div>
   );

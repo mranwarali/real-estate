@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
-@layer theme {
-  :root {
-    --primaryColor: #eb6753;
-    --primaryHoverColor: #ff3819;
-    --headings-color: #181a20;
-    --footerColor: #171b2a;
-    --whiteColor: #fff;
-    --grayColor: #494949;
-  }
+@theme {
+  --color-primary: #eb6753;
+  --color-primary-hover: #ff3819;
+  --color-headings: #181a20;
+  --color-footer: #171b2a;
+  --color-gray-custom: #494949;
+}
+
+:root {
+  --primaryColor: #eb6753;
+  --primaryHoverColor: #ff3819;
+  --headings-color: #181a20;
+  --footerColor: #171b2a;
+  --whiteColor: #fff;
+  --grayColor: #494949;
 }
 
 @layer base {
-  * {
+  *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    color: #181a20;
+    background-color: #ffffff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
 }
 
+/* Form input tweaks */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* Slick Carousel responsive fixes */
+.slick-slider {
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slick-list {
+  overflow: hidden;
+}
+
+.slick-dots {
+  bottom: -28px !important;
+}
+
+.slick-dots li {
+  margin: 0 3px !important;
+}
+
+.slick-dots li button:before {
+  font-size: 8px !important;
+  color: #eb6753 !important;
+  opacity: 0.3 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #eb6753 !important;
+  opacity: 1 !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

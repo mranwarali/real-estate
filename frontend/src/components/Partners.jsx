@@ -11,12 +11,12 @@ import Img7 from "../assets/images/partners/7.webp";
 const Partners = () => {
   const partnersList = [Img1, Img2, Img3, Img4, Img5, Img6, Img7];
 
-  var settings = {
-    dots: true,
-    speed: 500,
+  const settings = {
+    dots: false,
+    speed: 600,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 1500,
+    autoplaySpeed: 2000,
     infinite: true,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -25,49 +25,49 @@ const Partners = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+          slidesToShow: 4,
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 3,
+          slidesToScroll: 1,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
     ],
   };
+
   return (
-    <div className="container mx-auto py-10">
-      {/* <div className="text-center mb-4">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Our Partners</h2>
-        <p className="text-sm text-gray-500 mb-4">
-          We only work with the best companies around the globe
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 border-t border-gray-100">
+      <div className="text-center mb-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+          Trusted by Industry Leaders & Financial Institutions
         </p>
-      </div> */}
-      <Slider {...settings}>
+      </div>
+
+      <Slider {...settings} className="items-center">
         {partnersList.map((partner, index) => (
-          <div className="w-30" key={index}>
-            <img
-              src={partner}
-              alt={`Partner ${index + 1}`}
-              className="block mx-auto"
-            />
+          <div key={index} className="px-4 py-2">
+            <div className="flex items-center justify-center h-16 opacity-60 hover:opacity-100 transition-opacity">
+              <img
+                src={partner}
+                alt={`Partner ${index + 1}`}
+                className="max-h-10 max-w-[130px] object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
           </div>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
 
