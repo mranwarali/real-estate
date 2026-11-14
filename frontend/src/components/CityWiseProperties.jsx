@@ -94,8 +94,8 @@ const CityWiseProperties = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-2">
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 sm:mb-8 gap-2">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-(--primaryColor)">
             Top Locations
@@ -116,7 +116,7 @@ const CityWiseProperties = () => {
         </Link>
       </div>
 
-      <Slider {...settings} className="-mx-2">
+      <Slider {...settings} className="mobile-dots-slider -mx-2 pb-8">
         {cityList.map((city, index) => (
           <div key={index} className="px-2 pb-2">
             <Link
@@ -135,8 +135,8 @@ const CityWiseProperties = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent group-hover:from-black/90 transition-colors duration-300"></div>
 
               {/* Text content */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-center z-10">
-                <h3 className="capitalize text-xl font-bold text-white mb-1 drop-shadow-md group-hover:text-orange-300 transition-colors">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-center z-10">
+                <h3 className="capitalize text-lg sm:text-xl font-bold text-white mb-1 drop-shadow-md group-hover:text-orange-300 transition-colors">
                   {city.name}
                 </h3>
                 <p className="text-xs text-gray-200 font-medium bg-white/20 backdrop-blur-xs inline-block px-3 py-1 rounded-full">

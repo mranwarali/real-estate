@@ -32,8 +32,8 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <div className="text-center max-w-xl mx-auto mb-10">
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
+      <div className="text-center max-w-xl mx-auto mb-6 sm:mb-10">
         <span className="text-xs font-bold uppercase tracking-wider text-(--primaryColor)">
           Feedback
         </span>
@@ -45,10 +45,10 @@ const Testimonials = () => {
         </p>
       </div>
 
-      <Slider {...settings} className="-mx-2 pb-6">
+      <Slider {...settings} className="mobile-dots-slider -mx-2 pb-8">
         {ClientsFeedback.feedback.map((item, index) => (
           <div key={index} className="px-2 pb-2 h-full">
-            <div className="bg-white border border-gray-100 rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full min-h-[260px]">
+            <div className="bg-white border border-gray-100 rounded-2xl p-5 sm:p-7 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full min-h-[260px]">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex text-amber-400 text-sm">

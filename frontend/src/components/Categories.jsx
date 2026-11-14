@@ -89,8 +89,8 @@ const Categories = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-2">
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-4 sm:pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-5 sm:mb-6 gap-2">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-(--primaryColor)">
             Categories
@@ -123,11 +123,11 @@ const Categories = () => {
             <div key={index} className="px-2 pb-2">
               <Link
                 to={`/properties?propertyType=${cat.rawName}`}
-                className="group block p-5 sm:p-6 bg-white hover:bg-(--primaryColor) border border-gray-100 hover:border-(--primaryColor) rounded-2xl shadow-xs hover:shadow-xl transition-all duration-300 text-center"
+                className="group block p-4 sm:p-6 bg-white hover:bg-(--primaryColor) border border-gray-100 hover:border-(--primaryColor) rounded-2xl shadow-xs hover:shadow-xl transition-all duration-300 text-center"
               >
-                <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-orange-50 group-hover:bg-white/20 flex items-center justify-center transition-colors">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 rounded-2xl bg-orange-50 group-hover:bg-white/20 flex items-center justify-center transition-colors">
                   <i
-                    className={`bx ${cat.iconClass} text-3xl text-(--primaryColor) group-hover:text-white transition-colors`}
+                    className={`bx ${cat.iconClass} text-2xl sm:text-3xl text-(--primaryColor) group-hover:text-white transition-colors`}
                   ></i>
                 </div>
 

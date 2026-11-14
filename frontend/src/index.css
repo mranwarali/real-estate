@@ -48,6 +48,10 @@ input::-webkit-inner-spin-button {
   position: relative;
 }
 
+.slick-slider.mobile-dots-slider {
+  overflow: visible;
+}
+
 .slick-list {
   overflow: hidden;
 }

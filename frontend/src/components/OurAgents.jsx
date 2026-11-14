@@ -87,8 +87,8 @@ const OurAgents = () => {
   };
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <div className="text-center max-w-2xl mx-auto mb-10">
+    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
+      <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
         <span className="text-xs font-bold uppercase tracking-wider text-(--primaryColor)">
           Our Team
         </span>
@@ -100,10 +100,10 @@ const OurAgents = () => {
         </p>
       </div>
 
-      <Slider {...settings} className="-mx-2 pb-6">
+      <Slider {...settings} className="mobile-dots-slider -mx-2 pb-8">
         {data.map((agent) => (
           <div key={agent._id} className="px-2 pb-2">
-            <div className="bg-white rounded-2xl shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col items-center p-6 sm:p-8 text-center h-full">
+            <div className="bg-white rounded-2xl shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col items-center p-5 sm:p-8 text-center h-full">
               <div className="relative mb-4">
                 <img
                   className="h-24 w-24 rounded-full object-cover border-4 border-orange-100 shadow-md"
