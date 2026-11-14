@@ -132,7 +132,7 @@ const CityWiseProperties = () => {
               />
 
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent group-hover:from-black/90 transition-colors duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent group-hover:from-black/90 transition-colors duration-300"></div>
 
               {/* Text content */}
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-center z-10">

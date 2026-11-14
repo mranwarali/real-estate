@@ -30,7 +30,7 @@ const ContactDetails = ({ contactSections }) => {
       name: "Instagram",
       icon: "instagram",
       link: "https://www.instagram.com",
-      bgColor: "bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
+      bgColor: "bg-linear-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7]",
     },
     {
       name: "Whatsapp",

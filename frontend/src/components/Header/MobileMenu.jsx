@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import Logo from "../../assets/images/header-logo.svg";
+import Logo from "../../assets/images/nestora-logo.svg";
 
 const MobileMenu = ({ isOpen, onClose, navLinks, isLoggedIn, user, handleLogout }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -28,7 +28,7 @@ const MobileMenu = ({ isOpen, onClose, navLinks, isLoggedIn, user, handleLogout 
         {/* Drawer Header */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between">
           <Link to="/" onClick={onClose}>
-            <img src={Logo} alt="Logo" className="h-7 w-auto" />
+            <img src={Logo} alt="Nestora Realty" className="h-7 w-auto" />
           </Link>
           <button
             onClick={onClose}

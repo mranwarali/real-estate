@@ -61,7 +61,7 @@ const Partners = () => {
               <img
                 src={partner}
                 alt={`Partner ${index + 1}`}
-                className="max-h-10 max-w-[130px] object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
+                className="max-h-10 max-w-32.5 object-contain mx-auto grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           </div>

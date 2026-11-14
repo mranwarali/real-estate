@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Logo from "../assets/images/white-logo.svg";
+import Logo from "../assets/images/nestora-logo-light.svg";
 import { footerLinks, address, footerData } from "../data/data";
 import Newsletter from "./Newsletter";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,7 +71,7 @@ const Footer = () => {
             {/* Column 1: Brand Info & Socials */}
             <div className="sm:col-span-2 lg:col-span-1">
               <Link to="/" className="inline-block mb-4">
-                <img src={Logo} alt="Dream Home" className="h-8 w-auto" />
+                <img src={Logo} alt="Nestora Realty" className="h-8 w-auto" />
               </Link>
               <p className="text-xs sm:text-sm text-gray-300 mb-6 leading-relaxed">
                 {footerData.companyDesc}
@@ -237,7 +237,7 @@ const Footer = () => {
         {/* Copyright Bar */}
         <div className="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
           <p>
-            © {currentYear} Dream Home. All rights reserved.
+            © {currentYear} Nestora Realty. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link to="/faqs" className="hover:text-white transition-colors">

@@ -139,7 +139,7 @@ const PropertyList = () => {
               </div>
 
               {/* Card Body */}
-              <div className="p-4 sm:p-5 flex flex-col flex-grow">
+              <div className="p-4 sm:p-5 flex flex-col grow">
                 <div className="mb-1.5">
                   <Link
                     to={`/property/${item._id}`}
@@ -206,7 +206,7 @@ const PropertyList = () => {
                       <i className="bx bxs-user text-gray-400 text-sm flex items-center justify-center h-full"></i>
                     )}
                   </div>
-                  <span className="font-semibold text-gray-700 truncate max-w-[120px]">
+                  <span className="font-semibold text-gray-700 truncate max-w-30">
                     {item.owner?.name ? item.owner.name.split(" ")[0] : "Verified Owner"}
                   </span>
                 </div>

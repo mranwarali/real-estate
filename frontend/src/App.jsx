@@ -28,6 +28,7 @@ import BackToTop from "./components/BackToTop";
 import Blogs from "./pages/blog/Blogs";
 import BlogPost from "./pages/blog/BlogPost";
 import About from "./pages/About";
+import SeoHead from "./components/SeoHead";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -92,9 +93,10 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} />
       <Toaster position="top-center" reverseOrder={false} />
       <BrowserRouter>
+        <SeoHead />
         <div className="min-h-screen flex flex-col justify-between bg-white text-gray-900 selection:bg-orange-100 selection:text-(--primaryColor)">
           <Header />
-          <main className="flex-grow">
+          <main className="grow">
             <Routes>
               {routes.map((route, i) => (
                 <Route key={i} path={route.path} element={route.element}>

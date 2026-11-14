@@ -33,7 +33,7 @@ const Breadcrumbs = ({ parentLabel, parentLink, currentLabel }) => {
           <li aria-current="page" className="inline-flex items-center">
             <div className="flex items-center space-x-1.5 sm:space-x-2">
               <i className="bx bx-chevron-right text-gray-400 text-base shrink-0"></i>
-              <span className="font-semibold text-gray-800 max-w-[140px] sm:max-w-xs md:max-w-md truncate capitalize">
+              <span className="font-semibold text-gray-800 max-w-35 sm:max-w-xs md:max-w-md truncate capitalize">
                 {currentLabel}
               </span>
             </div>

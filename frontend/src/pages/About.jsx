@@ -20,7 +20,7 @@ const About = () => {
             <div className="rounded-3xl bg-[#004274] w-full h-[320px] sm:h-[400px] absolute -bottom-4 -left-4 -z-10 opacity-90 hidden sm:block"></div>
             <img
               src={AboutBanner}
-              alt="About Dream Home"
+              alt="About Nestora Realty"
               className="w-full h-[320px] sm:h-[400px] object-cover rounded-3xl shadow-xl border-4 border-white"
             />
           </div>

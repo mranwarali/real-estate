@@ -147,7 +147,7 @@ import settingIcon from "../assets/images/setting-icon.webp";
 export const aboutUsData = {
   title: "Our Long-Standing Experience",
   paragraph:
-    "Welcome to Dream Home. A brand-new community featuring sophisticated apartment residences and stylish amenities in one of L.A.’s most energetic locations. From beachside to cityside or poolside to fireside, this is where lifestyle and location are in perfect alignment.",
+    "Nestora Realty brings property buyers, renters, owners, and agents together in one place. Explore homes across India's top locations, compare listings, and connect with people who can help you take the next step.",
   features: [
     "Live Music Cocerts at Luviana",
     "Our SecretIsland Boat Tour is Just for You",

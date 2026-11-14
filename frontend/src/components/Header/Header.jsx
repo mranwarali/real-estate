@@ -1,4 +1,4 @@
-import Logo from "../../assets/images/header-logo.svg";
+import Logo from "../../assets/images/nestora-logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { logout } from "../../redux/auth/authSlice";
@@ -84,7 +84,7 @@ const Header = () => {
 
           {/* Logo */}
           <Link to="/" className="cursor-pointer flex items-center shrink-0">
-            <img src={Logo} alt="Dream Home Logo" className="h-7 sm:h-8 w-auto" />
+            <img src={Logo} alt="Nestora Realty" className="h-7 sm:h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation Links */}

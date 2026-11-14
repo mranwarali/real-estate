@@ -18,7 +18,7 @@ const Faqs = () => {
     {
       id: 1,
       category: "buying",
-      question: "Are all listed properties verified by Dream Home?",
+      question: "Are all listed properties verified by Nestora Realty?",
       answer:
         "Yes, our moderation and field verification team verifies property ownership, photographs, physical location, and RERA registration numbers before granting the 'Verified' badge to any listing.",
     },
@@ -102,7 +102,7 @@ const Faqs = () => {
           Frequently Asked Questions
         </h1>
         <p className="text-sm sm:text-base text-gray-600 mt-3">
-          Quick answers to common questions about buying, renting, selling, and managing properties with Dream Home.
+          Quick answers to common questions about buying, renting, selling, and managing properties with Nestora Realty.
         </p>
 
         {/* Search bar */}

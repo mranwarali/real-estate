@@ -85,7 +85,7 @@ const HeroSection = () => {
           className="w-full h-full object-cover"
           alt="Luxury waterfront properties"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/75 to-black/60"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/75 to-black/60"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
@@ -98,7 +98,7 @@ const HeroSection = () => {
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight">
               {heading.firstPart}{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-(--primaryColor)">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-(--primaryColor)">
                 {heading.highlight}
               </span>{" "}
               {heading.lastPart}

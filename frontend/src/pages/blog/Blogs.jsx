@@ -129,7 +129,7 @@ const Blogs = () => {
               </div>
 
               {/* Body */}
-              <div className="p-5 flex flex-col flex-grow">
+              <div className="p-5 flex flex-col grow">
                 <span className="text-xs text-gray-400 mb-2 font-medium">
                   {post?.createdAt
                     ? new Date(post.createdAt).toLocaleDateString("en-US", {
